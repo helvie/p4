@@ -1,0 +1,25 @@
+{% extends "transactionSummary.html.twig" %}
+{% block body %}
+
+    <div class="general">
+        <br/><br/>
+        <h2>Récapitulatif de votre commande</h2>
+        <br/><br/>
+        <h2>{{ message }}</h2>
+
+        <h2>{{ message }}</h2>
+        <br/>
+        <p><strong>Un mail vous a été envoyé à l'adresse indiquée. Nous vous remercions de le présenter lors de votre venue au musée.</strong></p>
+
+
+        <br/><br/>
+
+        {{ parent() }}
+
+
+        <a href="{{ path("index") }}" class='btn btn btn-info btnSave'>Revenir à l'accueil</a>
+
+        <br/><br/>
+
+    </div>
+{% endblock %}

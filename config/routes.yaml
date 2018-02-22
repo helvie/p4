@@ -1,0 +1,17 @@
+index:
+    path: /
+    controller: App\Controller\HomeController::homeDisplay
+
+formTransaction:
+    path: /transaction
+    controller: App\Controller\TransactionController::addTransaction
+
+
+cardNumber:
+    path: /cardNumber
+    controller: App\Controller\PaymentController::cardNumber
+
+validPayment:
+    path: /validPayment
+    controller: App\Controller\PaymentController::validPayment
+

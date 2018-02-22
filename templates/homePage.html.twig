@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+
+
+    <div class = "container col-lg-10 col-lg-offset-1">
+
+
+        <h2 class="title">Votre visite</h2>
+
+        <div class="homeDiv">
+
+        {{ form_start(form, {'attr':{'class':'form-stacked'}}) }}
+
+
+        {{ form_row(form.nbPersons) }}
+
+        <br/>
+
+        {{ form_row(form.visitDate) }}
+
+        <br/><br/>
+
+        {{ form_widget(form.persons, {'attr' : { 'style':'display:none'}}) }}
+        {{ form_widget(form.email, {'attr' : { 'style':'display:none', 'required':false}}) }}
+        {{ form_widget(form.halfDay, {'attr' : { 'style':'display:none', 'required':false}}) }}
+            {{ form_row(form.save, { 'attr': {'class': 'btn btn-success'} }) }}
+        {#{{ form_row(form._token) }}#}
+        {{ form_end(form) }}
+    </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+{% endblock %}
+
+
+

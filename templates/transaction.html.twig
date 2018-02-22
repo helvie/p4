@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-lg-10 col-lg-offset-1">
+    <h2>Informations visiteurs</h2>
+
+
+        {{ form_start(form) }}
+        {% if "now"|date('H', "Europe/Paris") >= 14 and "now"|date('Y-m-d', "Europe/Paris")
+            == app.session.get('visitDate')|date('Y-m-d', "Europe/Paris")  %}
+            <p>{{ form_widget(form.halfDay, {'attr' : { 'style':'display:none'}}) }}</p>
+
+        {% else %}
+            <p>{{ form_row(form.halfDay, {'label':'Si vous ne souhaitez venir qu\'à partir de 14h, cochez cette case'}) }}</p>
+
+        {% endif %}
+        <br/>
+        {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places'}) }}
+        {{ form_widget(form.nbPersons, {'attr' : { 'style':'display:none'}}) }}
+        {{ form_widget(form.visitDate, {'attr' : { 'style':'display:none'}}) }}
+
+
+
+         {% for person in form.persons %}
+            <div class="personSection col-lg-5">
+                {% if loop.index == 1 %}
+                <p class="sectionTitle">Renseignements vous concernant</p>
+                    {% else %}
+                    <p class="sectionTitle">Renseignements visiteur {{ loop.index }}</p>
+                        {% endif %}
+
+                <p>{{ form_row(person.name, {'label':'Nom'}) }}</p>
+                <p>{{ form_row(person.firstName, {'label':'Prénom'}) }}</p>
+                <p>{{ form_row(person.country , {'label':'Pays'}) }}</p>
+                <p>{{ form_row(person.birth,{'label':'Date de naissance','value':'2000-01-01'}) }}</p>
+                <p>{{ form_row(person.reduction, {'label':'Carte donnant accès à un tarif réduit', 'id':'box','onchange':'verif()'}) }}</p>
+                <p id="indication">La carte attestant de votre droit à un tarif réduit vous sera demandée à l'entrée du musée (étudiant, employé, du musée, d'un service du Ministère de la culture, militaire...)</p>
+            </div>
+         {% endfor %}
+
+
+<div class="col-xs-12">
+    {{ form_row(form.save) }}
+    </div>
+        {{ form_end(form) }}
+
+    </div>
+
+
+{% endblock %}
+
+{%  block javascripts %}
+
+
+    <script type="text/javascript">
+
+    {{ parent() }}
+
+        fu
+
+    </script>
+
+
+{% endblock %}
+

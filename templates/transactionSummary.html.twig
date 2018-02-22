@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+
+                Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
+                <br/><br/>
+
+                Durée visite :
+                {% if  transaction.halfDay == 0 %}
+                    <strong>Journée entière</strong>
+                    {% else %}
+                        <strong>Demi-journée</strong>
+                        {% endif %}
+                <br/><br/>
+
+                Email : <strong>{{ transaction.email }}</strong>
+                <br/><br/><br/>
+
+    <p>Visiteurs :</p><br/>
+
+
+{% for person in transaction.persons %}
+            Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
+            <br/>
+            Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays : <strong>{{ person.country }}</strong>
+            <br/>
+            Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
+            - Carte réduction :
+                {% if  person.reduction == 0 %}
+                    <strong>Non</strong>
+                {% else %}
+                    <strong>Oui</strong>
+                {% endif %}
+
+            <br/>
+            <br/>
+
+{% endfor %}
+    Montant de la commande : <strong>{{ totalTransaction }} euros</strong>
+    <br/><br/>
+
+{% endblock %}

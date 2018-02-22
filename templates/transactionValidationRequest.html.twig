@@ -1,0 +1,19 @@
+{% extends "transactionSummary.html.twig" %}
+{% block body %}
+
+<div class="general">
+    <br/><br/>
+    <h2>Votre commande</h2>
+    <br/><br/>
+
+{{ parent() }}
+
+
+    <a href="{{ path("cardNumber") }}" class='btn btn btn-info btnSave'>payer</a>
+    <a href="{{ path("formTransaction") }}" class='btn btn btn-info btnSave'>Modifier</a>
+
+    <br/><br/>
+
+
+</div>
+{% endblock %}
