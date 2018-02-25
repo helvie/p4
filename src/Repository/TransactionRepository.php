@@ -41,4 +41,16 @@ class TransactionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+
+    public function findTransactionsByTransactionCode($prout)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->select('t.transactionCode')
+            ->where('t.transactionCode LIKE :prout')
+            ->setParameter('prout', '%'.$prout.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 }

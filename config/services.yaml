@@ -82,3 +82,7 @@ services:
 #              class: App\Twig\AppExtension
 #              tags:
 #                - { name : twig.extension }
+
+    PaymentStatusAction:
+            class: App\Service\PaymentStatusAction
+            arguments: ["@doctrine"]

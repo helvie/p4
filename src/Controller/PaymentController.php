@@ -23,6 +23,7 @@ use DateTime;
 use DateInterval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Stripe\Stripe;
+use App\Service\PaymentStatusAction;
 
 
 
@@ -34,7 +35,7 @@ class PaymentController extends Controller
     }
 
 
-    public function validPayment(Request $request, Session $session)
+    public function validPayment(Request $request, Session $session, PaymentStatusAction $paymentStatusAction, \Swift_Mailer $mailer)
     {
         \Stripe\Stripe::setApiKey("sk_test_judrLeNL04PWjxhBfhzH4ZpV");
 
@@ -58,22 +59,44 @@ class PaymentController extends Controller
             $em->flush();
 
 
-    } catch (\Stripe\Error\ApiConnection $e) {
-    // Network problem, perhaps try again.
+        } catch (\Stripe\Error\ApiConnection $e) {
+        // Network problem, perhaps try again.
+            $message="apiconnection";
+        }
 
-            $message = "Ya eu un probleme de chepakoi";
-} catch (\Stripe\Error\InvalidRequest $e) {
-            $message = "La requête est nulle";
-    // You screwed up in your programming. Shouldn't happen!
-} catch (\Stripe\Error\Api $e) {
-    // Stripe's servers are down!
-            $message = "Le serveur a planté !";
-} catch (\Stripe\Error\Card $e) {
-    // Card was declined.
-            $message = "Votre carte a été refusée !";
-}
+        catch (\Stripe\Error\InvalidRequest $e) {
+        // You screwed up in your programming. Shouldn't happen!
+            $message="invalidrequest";
 
+        }
 
+        catch (\Stripe\Error\Api $e) {
+        // Stripe's servers are down!
+            $message="apitoutcourt";
+
+        }
+
+        catch (\Stripe\Error\Authentication $e) {
+        // Authentication with Stripe's API failed
+        // (maybe you changed API keys recently)
+            $message="authentification";
+
+        }
+
+        catch (\Stripe\Error\Base $e) {
+            // Something else happened, completely unrelated to Stripe
+            $paymentStatusAction->CardError();
+        // Display a very generic error to the user, and maybe send
+        // yourself an email
+            $message="base";
+
+        }
+
+        catch (Exception $e) {
+        // Something else happened, completely unrelated to Stripe
+            $paymentStatusAction->CardError();
+            $message="c'est raté";
+        }
 
 
         return $this->render("validatedTransaction.html.twig",

@@ -24,6 +24,7 @@ use DateTime;
 use DateInterval;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 use App\Repository\PersonRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -32,6 +33,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use App\Service\TransactionDataRecovery;
+use App\Repository\TransactionRepository;
+
 
 
 
@@ -40,7 +43,7 @@ class TransactionController extends Controller
 {
 
 // formulaire ajout transaction + personnes
-    public function addTransaction(PriceAward $priceAward, Request $request, SessionInterface $session)
+    public function addTransaction(PriceAward $priceAward, Request $request, SessionInterface $session, TransactionRepository $transactionRepository)
 
     {
         // Récupération de la date de visite et nombre de personnes
@@ -83,8 +86,7 @@ class TransactionController extends Controller
 
         if ($form->isSubmitted()
             //&& $form->isValid()
-        )
-        {
+        ) {
 
             // Création d'une entité transaction pour préparer les données de BD
             $transaction = new Transaction();
@@ -95,7 +97,7 @@ class TransactionController extends Controller
             // Affichage de la case à cocher si la date de visite n'est pas le jour même après 14h
             $dateNow = new \DateTime('now');
             if ($dateNow->format('y-m-d') == $visitDate->format('y-m-d') && $dateNow->format("H") > 13) {
-                $transaction->setHalfDay(1);
+                $transaction->setHalfDay(true);
             } else {
                 $transaction->setHalfDay($transactionForm->getHalfDay());
             }
@@ -104,6 +106,7 @@ class TransactionController extends Controller
             $transaction->setEmail(mb_strtolower($transactionForm->getEmail()));
             $transaction->setVisitDate($visitDate);
             $transaction->setNbPersons($nbPersons);
+            $transaction->setTransactionCode("essai");
 
             // Création variable du montant de la commande
             $totalTransaction = 0;
@@ -118,7 +121,7 @@ class TransactionController extends Controller
                 $person->setCountry(mb_strtoupper($uniquePerson->getCountry(), 'UTF-8'));
                 $person->setBirth($uniquePerson->getBirth());
                 $person->setReduction($uniquePerson->getReduction());
-                //$person->setTransaction($transaction);
+                $person->setTransaction($transaction);
 
                 // Injection de chaque personne dans l'array persons de l'entité transaction
                 $transaction->getPersons()->add($person);
@@ -130,19 +133,41 @@ class TransactionController extends Controller
                 $totalTransaction += $price;
             }
 
-            // Envoi de l'entité transaction et du montant de la commande dans la session
-            $session->set('transaction', $transaction);
-            $session->set('totalTransaction', $totalTransaction);
 
-            // Affichage du récapitulatif de la commande
-            return $this->render("transactionValidationRequest.html.twig",[
-                    //'transactionId' => $transaction->getId(),
-                    'transaction' => $transaction,
-                    'totalTransaction' => $totalTransaction
-        ]
-            );
+            $year = $visitDate->format('y');
+            $month = $visitDate->format('m');
+            $day = $visitDate->format('d');
+            $applicant = $transaction->getpersons()->first()->getName();
+            $applicantCode = substr($applicant . "000", 0, 4);
+            $prout = $applicantCode . $year . $month . $day;
 
-        }
+            $transactionCodeZ = $transactionRepository->findTransactionsByTransactionCode($prout);
+            $plus=max($transactionCodeZ);
+            //if (empty($transactionCodeZ)) {
+             //   $transactionCodeB = $transactionCode . "00";
+            //} else {
+                //$transactionCodeB = max($transactionCodeZ);
+            //}
+
+
+
+
+        // Envoi de l'entité transaction et du montant de la commande dans la session
+        $session->set('transaction', $transaction);
+        $session->set('totalTransaction', $totalTransaction);
+
+
+        // Affichage du récapitulatif de la commande
+        return $this->render("transactionValidationRequest.html.twig", [
+                //'transactionId' => $transaction->getId(),
+                'transaction' => $transaction,
+                'totalTransaction' => $totalTransaction,
+                'chaine' => $plus,
+                'chaine2' =>$transactionCodeZ
+            ]
+        );
+        };
+
         // Affichage du formulaire de transaction
         return $this->render("transaction.html.twig", array(
                 'form' => $form->createView(),
@@ -153,7 +178,7 @@ class TransactionController extends Controller
     }
 
 
-    public function transactionFinalization(PriceAward $priceAward, Request $request, SessionInterface $session)
+    public function transactionFinalization(PriceAward $priceAward, Request $request, SessionInterface $session, \Swift_Mailer $mailer)
     {
         /* Create the Transport
 $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
@@ -186,3 +211,4 @@ $transport = (new Swift_SmtpTransport('smtp.example.org', 25))
 
 
 }
+

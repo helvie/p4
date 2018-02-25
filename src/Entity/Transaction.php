@@ -53,6 +53,11 @@ class Transaction {
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $transactionCode;
+
 
     /**
     * @ORM\OneToMany(targetEntity="Person", mappedBy="transaction", cascade="all", orphanRemoval=true)
@@ -145,6 +150,21 @@ class Transaction {
         $this->email = $email;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTransactionCode()
+    {
+        return $this->transactionCode;
+    }
+
+    /**
+     * @param mixed $transactionCode
+     */
+    public function setTransactionCode($transactionCode)
+    {
+        $this->email = $transactionCode;
+    }
 
 
     public function __construct()

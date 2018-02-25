@@ -24,23 +24,32 @@
         {{ form_widget(form.visitDate, {'attr' : { 'style':'display:none'}}) }}
 
 
-
+        {% set nbFormPersons = 0 %}
          {% for person in form.persons %}
-            <div class="personSection col-lg-5">
-                {% if loop.index == 1 %}
+            <div class="personSection col-lg-5"">
+
+                {% if loop.index == 0 %}
                 <p class="sectionTitle">Renseignements vous concernant</p>
                     {% else %}
                     <p class="sectionTitle">Renseignements visiteur {{ loop.index }}</p>
                         {% endif %}
-
                 <p>{{ form_row(person.name, {'label':'Nom'}) }}</p>
                 <p>{{ form_row(person.firstName, {'label':'Prénom'}) }}</p>
                 <p>{{ form_row(person.country , {'label':'Pays'}) }}</p>
                 <p>{{ form_row(person.birth,{'label':'Date de naissance','value':'2000-01-01'}) }}</p>
-                <p>{{ form_row(person.reduction, {'label':'Carte donnant accès à un tarif réduit', 'id':'box','onchange':'verif()'}) }}</p>
-                <p id="indication">La carte attestant de votre droit à un tarif réduit vous sera demandée à l'entrée du musée (étudiant, employé, du musée, d'un service du Ministère de la culture, militaire...)</p>
+                {% set reducedPriceId = "reducedPrice" ~ loop.index %}
+            <div style="padding-bottom:50px";>
+                <p>{{ form_row(person.reduction, {'label':'Bénéficiaire d\'un tarif réduit', 'attr':
+                        {'id':reducedPriceId, 'class':"reducedPriceClass"}}) }}
+                    (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...)</p>
+                <p id="annotation" style="color:red;display:none;">Attention...la carte attestant de votre droit a un tarif réduit vous sera demandée à l'entrée du musée
+                        </p></div>
             </div>
+             {% set nbFormPersons = nbFormPersons + 1 %}
+
          {% endfor %}
+
+
 
 
 <div class="col-xs-12">
@@ -49,18 +58,36 @@
         {{ form_end(form) }}
 
     </div>
+    <div class='nbFormPersons' data-nbFormPersons={{ nbFormPersons }}></div>
 
 
 {% endblock %}
 
 {%  block javascripts %}
 
-
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    </script>
     <script type="text/javascript">
 
-    {{ parent() }}
 
-        fu
+        var gerard = document.getElementsByClassName('reducedPriceClass');
+
+        $(".reducedPriceClass").change(function(e){
+            var annotation = this.parentNode.parentNode.lastChild;
+            if (this.checked)
+            {
+                annotation.style.display="";
+            this.parentNode.parentNode.style.paddingBottom = "0px";}
+            else
+            {  annotation.style.display="none";
+                this.parentNode.parentNode.style.paddingBottom = "50px";}
+        })
 
     </script>
 
