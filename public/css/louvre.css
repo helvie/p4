@@ -2,11 +2,12 @@
 }
 
 .personSection{
-    padding-top:10px;
+    padding-top:20px;
     margin-bottom : 30px;
     margin-right : 20px;
-    border : solid 2px #bbb;
-    background-color : #dadada;
+    /*border : solid 2px #9e721c;*/
+    background-color:#d5d393;
+    border-radius: 4px;
 }
 
 #transaction_email.form-control
@@ -17,6 +18,11 @@
 .sectionTitle{
     font-size : 14px;
     font-weight : bold;
+}
+
+.bodyPage{
+    padding-top:60px;
+    padding-bottom:100px;
 }
 
 .col-form-legend, .form-control-label{
@@ -42,8 +48,12 @@ input#home_page_visitDate.form-control
 }
 
 .homeDiv{
-    background-color:#dadada;
+    background-color:#d5d393;
     padding : 20px;
+    padding-bottom : 40px;
+    border-radius: 4px;
+    margin-bottom: 30px;
+
 }
 
 /*legend.col-form-legend.required, label.form-control-label.required {
@@ -71,11 +81,30 @@ input#home_page_visitDate.form-control
     }
 
 .btnSave {
-    background-color:#313131;
+    background-color:#776639;
     color:#fff;
     border-width : 0px;
     margin-right : 10px;
-    margin-top : 30px;}
+    margin-top : 20px;}
+
+.btnHome {
+    background-color:#d5d393;
+    color:#000;
+    border-width : 0px;
+    margin-right : 10px;
+    margin-top:40px;}
+
+.btnSave:hover,.btnSave:active,.btnSave:focus,.btnSave:active:focus, .btnSave.active:focus{
+    background-color: #886711;
+    border: 0px none;
+    margin-right: 10px;
+    margin-top: 30px;
+    outline: none;
+    box-shadow: none;
+
+}
+
+
 
 .indication {
     color : #313131;
@@ -87,9 +116,22 @@ input#home_page_visitDate.form-control
 }
 
 h2 {
-    font-size : 24px;
-    color:#666;
 
+    font-size : 24px;
+    margin-bottom : 10px;
+}
+
+h3 {
+    font-size:22px;
+}
+
+
+h4 {
+    margin-bottom : 30px;
+}
+
+label{
+    margin-right:10px;
 }
 
 /**
@@ -117,4 +159,44 @@ h2 {
 
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+}
+
+#card-errors{
+    color:red;
+}
+
+#informations{
+    margin-bottom : 80px;
+}
+
+.museumInfo{
+    background-color:#F7F3ED;
+    padding-top:20px;
+    padding-bottom:20px;
+
+}
+
+.museumInfo p{
+    margin-bottom:8px;
+    line-height:15px;
+}
+
+.homeText, .pageText{
+    padding-top:20px;
+    padding-bottom:50px;
+    padding-left:0px;
+
+    font-size:16px;
+}
+
+.formHomeTitle{
+    margin-bottom:30px;
+}
+
+.paymentForm{
+    background-color:#d5d393;
+    padding : 20px;
+    padding-bottom : 40px;
+    border-radius: 4px;
+    margin-top: 30px;
 }

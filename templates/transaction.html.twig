@@ -5,38 +5,53 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-lg-10 col-lg-offset-1">
+    <div class="container col-lg-10 col-lg-offset-1 bodyPage" id="informations">
+
     <h2>Informations visiteurs</h2>
+
+        <div class = "container col-lg-12 pageText">
+
+
+
+            <p>Afin de pouvoir prendre en compte votre commande, nous vous remercions de compléter les informations ci-dessous :</p>
+        </div>
+
+
+            <p><strong>Date de la visite : </strong>{{ app.session.get('visitDate')|date('d/m/Y') }}</p>
 
 
         {{ form_start(form) }}
+
         {% if "now"|date('H', "Europe/Paris") >= 14 and "now"|date('Y-m-d', "Europe/Paris")
             == app.session.get('visitDate')|date('Y-m-d', "Europe/Paris")  %}
             <p>{{ form_widget(form.halfDay, {'attr' : { 'style':'display:none'}}) }}</p>
-
         {% else %}
-            <p>{{ form_row(form.halfDay, {'label':'Si vous ne souhaitez venir qu\'à partir de 14h, cochez cette case'}) }}</p>
+            <p>{{ form_row(form.halfDay, {'label':'Si vous ne souhaitez venir qu\'à partir de 14h, cochez cette case '}) }}</p>
 
         {% endif %}
-        <br/>
-        {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places'}) }}
+
+        {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places '}) }}
+        <br/><br/>
         {{ form_widget(form.nbPersons, {'attr' : { 'style':'display:none'}}) }}
         {{ form_widget(form.visitDate, {'attr' : { 'style':'display:none'}}) }}
 
 
+
+        <div class="col-lg-12">
+
         {% set nbFormPersons = 0 %}
          {% for person in form.persons %}
-            <div class="personSection col-lg-5"">
+            <div class="personSection col-lg-5">
 
-                {% if loop.index == 0 %}
-                <p class="sectionTitle">Renseignements vous concernant</p>
+                {% if loop.index == 1 %}
+                    <h4>Renseignements vous concernant</h4>
                     {% else %}
-                    <p class="sectionTitle">Renseignements visiteur {{ loop.index }}</p>
+                    <h4>Renseignements visiteur {{ loop.index }}</h4>
                         {% endif %}
                 <p>{{ form_row(person.name, {'label':'Nom'}) }}</p>
                 <p>{{ form_row(person.firstName, {'label':'Prénom'}) }}</p>
                 <p>{{ form_row(person.country , {'label':'Pays'}) }}</p>
-                <p>{{ form_row(person.birth,{'label':'Date de naissance','value':'2000-01-01'}) }}</p>
+                <p>{{ form_row(person.birth,{'label':'Date de naissance'}) }}</p>
                 {% set reducedPriceId = "reducedPrice" ~ loop.index %}
             <div style="padding-bottom:50px";>
                 <p>{{ form_row(person.reduction, {'label':'Bénéficiaire d\'un tarif réduit', 'attr':
@@ -45,22 +60,24 @@
                 <p id="annotation" style="color:red;display:none;">Attention...la carte attestant de votre droit a un tarif réduit vous sera demandée à l'entrée du musée
                         </p></div>
             </div>
-             {% set nbFormPersons = nbFormPersons + 1 %}
-
          {% endfor %}
 
+            <div class="col-lg-12">
+            {{ form_row(form.save, { 'label':'Valider'}) }}
+            </div>
+            <div class="col-lg-12">
+
+            <a href="{{ path("index") }}" class='btn btn btn-info btnHome'>Annuler la commande et revenir à l'accueil</a>
+        </div></div>
 
 
 
-<div class="col-xs-12">
-    {{ form_row(form.save) }}
-    </div>
+
+
         {{ form_end(form) }}
+        <br/>
 
     </div>
-    <div class='nbFormPersons' data-nbFormPersons={{ nbFormPersons }}></div>
-
-
 {% endblock %}
 
 {%  block javascripts %}

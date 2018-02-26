@@ -106,7 +106,7 @@ class TransactionController extends Controller
             $transaction->setEmail(mb_strtolower($transactionForm->getEmail()));
             $transaction->setVisitDate($visitDate);
             $transaction->setNbPersons($nbPersons);
-            $transaction->setTransactionCode("essai");
+
 
             // Création variable du montant de la commande
             $totalTransaction = 0;
@@ -137,20 +137,25 @@ class TransactionController extends Controller
             $year = $visitDate->format('y');
             $month = $visitDate->format('m');
             $day = $visitDate->format('d');
-            $applicant = $transaction->getpersons()->first()->getName();
-            $applicantCode = substr($applicant . "000", 0, 4);
-            $prout = $applicantCode . $year . $month . $day;
+            $applicantName = $transaction->getpersons()->first()->getName();
+            $applicantNameDebut = substr($applicantName . "AAA", 0, 4);
+            $transactionCodeDebut = $applicantNameDebut . $year . $month . $day;
+            $transactionCodeTable = $transactionRepository->findTransactionsByTransactionCode($transactionCodeDebut);
 
-            $transactionCodeZ = $transactionRepository->findTransactionsByTransactionCode($prout);
-            $plus=max($transactionCodeZ);
-            //if (empty($transactionCodeZ)) {
-             //   $transactionCodeB = $transactionCode . "00";
-            //} else {
-                //$transactionCodeB = max($transactionCodeZ);
-            //}
+            if(empty($transactionCodeTable)){
+                $finalTransactionCode = $transactionCodeDebut."00";
+            }
+            else{
+                $transactionCodeMaxi=substr(max($transactionCodeTable)['transactionCode'],-2);
+                if($transactionCodeMaxi < 9) {
+                    $finalTransactionCode = $transactionCodeDebut . "0" . ($transactionCodeMaxi + 1);
+                }
+                else{
+                    $finalTransactionCode = $transactionCodeDebut .($transactionCodeMaxi + 1);
+                }
+            }
 
-
-
+            $transaction->setTransactionCode($finalTransactionCode);
 
         // Envoi de l'entité transaction et du montant de la commande dans la session
         $session->set('transaction', $transaction);
@@ -162,8 +167,8 @@ class TransactionController extends Controller
                 //'transactionId' => $transaction->getId(),
                 'transaction' => $transaction,
                 'totalTransaction' => $totalTransaction,
-                'chaine' => $plus,
-                'chaine2' =>$transactionCodeZ
+                'chaine' => $finalTransactionCode,
+                'chaine2' =>$year
             ]
         );
         };

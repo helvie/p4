@@ -163,7 +163,7 @@ class Transaction {
      */
     public function setTransactionCode($transactionCode)
     {
-        $this->email = $transactionCode;
+        $this->transactionCode = $transactionCode;
     }
 
 

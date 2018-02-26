@@ -35,7 +35,8 @@ class PaymentController extends Controller
     }
 
 
-    public function validPayment(Request $request, Session $session, PaymentStatusAction $paymentStatusAction, \Swift_Mailer $mailer)
+    public function validPayment(Request $request, Session $session, PaymentStatusAction $paymentStatusAction,
+                                 \Swift_Mailer $mailer)
     {
         \Stripe\Stripe::setApiKey("sk_test_judrLeNL04PWjxhBfhzH4ZpV");
 
@@ -59,54 +60,50 @@ class PaymentController extends Controller
             $em->flush();
 
 
+            return $this->render("validatedTransaction.html.twig",
+                array(
+                    //'transactionId' => $transaction->getId(),
+                    'transaction' => $session->get('transaction'),
+                    'totalTransaction' => $session->get('totalTransaction'),
+                    'message' => $message,
+                )
+            );
+
         } catch (\Stripe\Error\ApiConnection $e) {
-        // Network problem, perhaps try again.
-            $message="apiconnection";
+            $paymentStatusAction->StripeError("apiConnection");
         }
 
         catch (\Stripe\Error\InvalidRequest $e) {
-        // You screwed up in your programming. Shouldn't happen!
-            $message="invalidrequest";
-
+            $paymentStatusAction->StripeError("invalidRequest");
         }
 
         catch (\Stripe\Error\Api $e) {
-        // Stripe's servers are down!
-            $message="apitoutcourt";
-
+            $paymentStatusAction->StripeError("api");
         }
 
         catch (\Stripe\Error\Authentication $e) {
-        // Authentication with Stripe's API failed
-        // (maybe you changed API keys recently)
-            $message="authentification";
-
+            $paymentStatusAction->StripeError("authentification");
         }
 
         catch (\Stripe\Error\Base $e) {
-            // Something else happened, completely unrelated to Stripe
             $paymentStatusAction->CardError();
-        // Display a very generic error to the user, and maybe send
-        // yourself an email
-            $message="base";
-
         }
 
         catch (Exception $e) {
-        // Something else happened, completely unrelated to Stripe
             $paymentStatusAction->CardError();
-            $message="c'est raté";
         }
 
-
-        return $this->render("validatedTransaction.html.twig",
+        return $this->render("cardNumber.html.twig",
             array(
                 //'transactionId' => $transaction->getId(),
                 'transaction' => $session->get('transaction'),
                 'totalTransaction' => $session->get('totalTransaction'),
-                'message' => $message,
+                'paymentError' => $session->get('paymentError'),
+                'message' => "essai"
             )
         );
+
+
     }
 
 }

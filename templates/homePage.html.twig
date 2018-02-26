@@ -9,12 +9,23 @@
 
 
 
-    <div class = "container col-lg-10 col-lg-offset-1">
+    <div class = "container col-lg-10 col-lg-offset-1 bodyPage">
+
+        <div class = "container col-lg-8">
+
+            <div class = "container col-lg-12 homeText">
+                <strong>Bienvenue sur le nouveau site de réservation de billets pour le Musée du Louvre !</strong> <br/><br/>Notre musée
+                constitue un univers passionnant pour les petits comme pour les grands. Tout est mis en œuvre pour accompagner
+                sur place, les familles dans leur découverte du musée. Bonne visite !
+            </div>
 
 
-        <h2 class="title">Votre visite</h2>
 
-        <div class="homeDiv">
+
+
+        <div class="container col-lg-12 homeDiv">
+
+            <h2 class="formHomeTitle">Votre visite</h2>
 
         {{ form_start(form, {'attr':{'class':'form-stacked'}}) }}
 
@@ -25,16 +36,28 @@
 
         {{ form_row(form.visitDate) }}
 
-        <br/><br/>
+        <br/>
 
         {{ form_widget(form.persons, {'attr' : { 'style':'display:none'}}) }}
         {{ form_widget(form.email, {'attr' : { 'style':'display:none', 'required':false}}) }}
         {{ form_widget(form.halfDay, {'attr' : { 'style':'display:none', 'required':false}}) }}
-            {{ form_row(form.save, { 'attr': {'class': 'btn btn-success'} }) }}
+            {{ form_row(form.save) }}
         {#{{ form_row(form._token) }}#}
         {{ form_end(form) }}
     </div>
-    </div>
+        </div>
+            <div class = "col-lg-3  col-lg-offset-1 museumInfo">
+                <h3>Tarifs </h3>
+                <p>Plein : 16€ </p>
+                    <p>Réduit : 10€ (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...) </p>
+                <p>Moins de 14 ans : 8€ </p>
+                <p>4 à 13 ans : 6€ </p>
+                <p>Moins de 4 ans : gratuit </p>
+                <h3>Jours de fermeture :</h3>
+                    <p>Chaque mardi et dimanche, jours fériés </p>
+            </div>
+
+
 
 
 
