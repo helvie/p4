@@ -16,14 +16,12 @@ use Doctrine\ORM\Entity;
  * @package App\Validator\Constraints
  * @Annotation
  */
-
-
 class WithoutReservationDate extends Constraint
 {
     public $message = "Il n'y a pas de réservation possible le dimanche";
 
     public function validatedBy()
     {
-        return get_class($this).'Validator';
+        return get_class($this) . 'Validator';
     }
 }

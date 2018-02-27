@@ -15,14 +15,14 @@ class WeeklyClosingDateValidator extends ConstraintValidator
     {
         $dayOfWeek = $value->format('N');
 
-            if($dayOfWeek == 2) {
-                $this->context->buildViolation($constraint->message)
-                    ->addViolation();
-            }
+        if ($dayOfWeek == 2) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
 
     }
 
-    }
+}
 
 
 

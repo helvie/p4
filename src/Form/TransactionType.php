@@ -19,30 +19,29 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TransactionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('visitDate', DateType::class, [
                 'label' => "A quelle date souhaitez-vous venir ?",
                 'widget' => 'single_text',
-                'data' =>  new \DateTime("now")])
-
-            ->add('nbPersons', NumberType::class,[
-                'label' => "Combien de personnes serez-vous ?"])
-
-            ->add('halfDay', CheckboxType::class, array('required'=>false, 'label'=>false,))
-
-            ->add('email', EmailType::class,array('required'=>false,))
-
+                'required' => false,])
+            ->add('nbPersons', NumberType::class, [
+                'label' => "Combien de personnes serez-vous ?",
+                'required' => false,])
+            ->add('halfDay', CheckboxType::class, array('required' => false, 'label' => false,))
+            ->add('email', EmailType::class, array('required' => false,))
             ->add('persons', CollectionType::class, array(
+                'required' => false,
                 'entry_type' => PersonType::class,
                 'entry_options' => array('label' => false),
             ))
-            ->add('save', SubmitType::class,['attr' => ['class'=>'btn btn btn-info btnSave']]);
+            ->add('transactionCode', TextType::class, array('required' => false,))
+            ->add('save', SubmitType::class, ['attr' => ['class' => 'btn btn btn-info btnSave']]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

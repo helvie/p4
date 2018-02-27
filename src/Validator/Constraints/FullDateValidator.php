@@ -32,7 +32,7 @@ class FullDateValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $repository=$this->em
+        $repository = $this->em
             ->getRepository(Transaction::Class);
 
         $dayFilter = $repository->getNbVisitors($value);

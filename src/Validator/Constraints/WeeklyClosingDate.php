@@ -16,14 +16,12 @@ use Doctrine\ORM\Entity;
  * @package App\Validator\Constraints
  * @Annotation
  */
-
-
 class WeeklyClosingDate extends Constraint
 {
     public $message = "C'est un jour de fermeture hebdomadaire !";
 
     public function validatedBy()
     {
-        return get_class($this).'Validator';
+        return get_class($this) . 'Validator';
     }
 }

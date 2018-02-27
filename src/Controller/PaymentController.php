@@ -26,14 +26,12 @@ use Stripe\Stripe;
 use App\Service\PaymentStatusAction;
 
 
-
 class PaymentController extends Controller
 {
     public function cardNumber(Request $request)
     {
         return $this->render('cardNumber.html.twig');
     }
-
 
     public function validPayment(Request $request, Session $session, PaymentStatusAction $paymentStatusAction,
                                  \Swift_Mailer $mailer)
@@ -43,12 +41,12 @@ class PaymentController extends Controller
         //require_once('vendor/autoload.php');
 
         try {
-        \Stripe\Charge::create(array(
-            "amount" => ($session->get('totalTransaction')) * 100,
-            "currency" => "eur",
-            "source" => $request->request->get('stripeToken'), // obtained with Stripe.js
-            "description" => "Paiement test"
-        ));
+            \Stripe\Charge::create(array(
+                "amount" => ($session->get('totalTransaction')) * 100,
+                "currency" => "eur",
+                "source" => $request->request->get('stripeToken'), // obtained with Stripe.js
+                "description" => "Paiement test"
+            ));
 
             // Accès à la base de données, récupération de l'entité transaction,
             // envoi en BDD (PROVISOIRE sera mis après vérif paiement)
@@ -71,25 +69,15 @@ class PaymentController extends Controller
 
         } catch (\Stripe\Error\ApiConnection $e) {
             $paymentStatusAction->StripeError("apiConnection");
-        }
-
-        catch (\Stripe\Error\InvalidRequest $e) {
+        } catch (\Stripe\Error\InvalidRequest $e) {
             $paymentStatusAction->StripeError("invalidRequest");
-        }
-
-        catch (\Stripe\Error\Api $e) {
+        } catch (\Stripe\Error\Api $e) {
             $paymentStatusAction->StripeError("api");
-        }
-
-        catch (\Stripe\Error\Authentication $e) {
+        } catch (\Stripe\Error\Authentication $e) {
             $paymentStatusAction->StripeError("authentification");
-        }
-
-        catch (\Stripe\Error\Base $e) {
+        } catch (\Stripe\Error\Base $e) {
             $paymentStatusAction->CardError();
-        }
-
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $paymentStatusAction->CardError();
         }
 

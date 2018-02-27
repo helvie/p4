@@ -24,7 +24,6 @@ use DateInterval;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
-
 class HomeController extends Controller
 {
 

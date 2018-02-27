@@ -19,17 +19,16 @@ class PaymentStatusAction
 {
 
 
-
-        public function __construct(\Swift_Mailer $mailer, SessionInterface $session)
-        {
-            $this->mailer = $mailer;
-            $this->session = $session;
-        }
+    public function __construct(\Swift_Mailer $mailer, SessionInterface $session)
+    {
+        $this->mailer = $mailer;
+        $this->session = $session;
+    }
 
 
     public function StripeError($error)
     {
-        $messageError=$error;
+        $messageError = $error;
 
         // Create a message
         $message = (new Swift_Message('Vos billets suite à votre commande'))
@@ -42,8 +41,7 @@ class PaymentStatusAction
 
         $this->session->set('paymentError', 'stripeError');
 
-        }
-
+    }
 
 
     public function CardError()

@@ -20,12 +20,12 @@ class TransactionRepository extends ServiceEntityRepository
             ->where('t.visitDate = :date')
             ->setParameter('date', $date)
             ->getQuery();
-        $result=$query->getResult();
+        $result = $query->getResult();
 
-        $nbTotal=0;
+        $nbTotal = 0;
 
         foreach ($result as $nb) {
-            $nbTotal+=$nb['nbPersons'];
+            $nbTotal += $nb['nbPersons'];
         }
         return ($nbTotal);
     }
@@ -42,12 +42,11 @@ class TransactionRepository extends ServiceEntityRepository
     }
 
 
-    public function findTransactionsByTransactionCode($prout)
-    {
+    public function findTransactionsByTransactionCode($codeTransaction){
         $query = $this->createQueryBuilder('t')
             ->select('t.transactionCode')
-            ->where('t.transactionCode LIKE :prout')
-            ->setParameter('prout', '%'.$prout.'%')
+            ->where('t.transactionCode LIKE :codeTransaction')
+            ->setParameter('codeTransaction', '%' . $codeTransaction . '%')
             ->getQuery();
 
         return $query->getResult();

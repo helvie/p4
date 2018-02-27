@@ -25,17 +25,13 @@ class PersonType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('firstName', TextType::class)
-            ->add('country', TextType::class,[
+            ->add('country', TextType::class, [
                 'data' => 'France'])
             ->add('birth', DateType::class,
                 ['widget' => 'single_text'
                 ])
-           // ->add('price', HiddenType::class)
-            ->add('reduction', CheckboxType::class, ['required'=>false])
-
-
-
-        ;
+            // ->add('price', HiddenType::class)
+            ->add('reduction', CheckboxType::class, ['required' => false]);
 
     }
 

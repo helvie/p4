@@ -32,15 +32,16 @@ class HolidayDateValidator extends ConstraintValidator
             if ($value->format("Y-m-d") == $holidayArray[$i]) {
                 $holiday = true;
                 break;
-            }}
-            if ($holiday == true) {
-                $this->context->buildViolation($constraint->message)
-                    ->addViolation();
             }
+        }
+        if ($holiday == true) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
 
     }
 
-    }
+}
 
 
 

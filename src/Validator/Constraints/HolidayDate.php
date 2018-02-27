@@ -16,14 +16,12 @@ use Doctrine\ORM\Entity;
  * @package App\Validator\Constraints
  * @Annotation
  */
-
-
 class HolidayDate extends Constraint
 {
     public $message = "C'est férié !";
 
     public function validatedBy()
     {
-        return get_class($this).'Validator';
+        return get_class($this) . 'Validator';
     }
 }

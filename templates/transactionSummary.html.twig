@@ -1,42 +1,57 @@
 {% extends "base.html.twig" %}
-{% block body %}
+
+{% block title %}{% endblock %}
+
+        {% block pageTitle %}
+
+        {% endblock %}
 
 
-                Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
-                <br/><br/>
 
-                Durée visite :
-                {% if  transaction.halfDay == 0 %}
-                    <strong>Journée entière</strong>
-                    {% else %}
-                        <strong>Demi-journée</strong>
-                        {% endif %}
-                <br/><br/>
+        {% block bodyPage %}
 
-                Email : <strong>{{ transaction.email }}</strong>
-                <br/><br/><br/>
+            <h3>Venue :</h3>
 
-    <p>Visiteurs :</p><br/>
+            Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
+            <br/><br/>
 
+            Durée visite :
+            {% if  transaction.halfDay == 0 %}
+                <strong>Journée entière</strong>
+            {% else %}
+                <strong>Demi-journée</strong>
+            {% endif %}
+            <br/><br/>
 
-{% for person in transaction.persons %}
-            Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
-            <br/>
-            Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays : <strong>{{ person.country }}</strong>
-            <br/>
-            Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
-            - Carte réduction :
+            Email : <strong>{{ transaction.email }}</strong>
+            <br/><br/><br/>
+
+            <h3>Visiteurs :</h3>
+
+            {% for person in transaction.persons %}
+                Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
+                <br/>
+                Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays :
+                <strong>{{ person.country }}</strong>
+                <br/>
+                Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
+                - Carte réduction :
                 {% if  person.reduction == 0 %}
                     <strong>Non</strong>
                 {% else %}
                     <strong>Oui</strong>
                 {% endif %}
 
-            <br/>
-            <br/>
+                <br/>
+                <br/>
+                <br/>
 
-{% endfor %}
-    Montant de la commande : <strong>{{ totalTransaction }} euros</strong>
-    <br/><br/>
+            {% endfor %}
+            <div id = "totalTransaction">Montant de la commande :
+                <span id="totalTransactionText">{{ totalTransaction }} euros</span></div>
+            <br/><br/>
+        {% endblock %}
 
-{% endblock %}
+
+
+

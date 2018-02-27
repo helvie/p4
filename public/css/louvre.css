@@ -1,56 +1,52 @@
-.title{
+.title {
 }
 
-.personSection{
-    padding-top:20px;
-    margin-bottom : 30px;
-    margin-right : 20px;
+.personSection {
+    padding-top: 20px;
+    margin-bottom: 30px;
+    margin-right: 20px;
     /*border : solid 2px #9e721c;*/
-    background-color:#d5d393;
+    background-color: #d5d393;
     border-radius: 4px;
 }
 
-#transaction_email.form-control
-{
-    width:300px;
+#transaction_email.form-control {
+    width: 300px;
 }
 
-.sectionTitle{
-    font-size : 14px;
-    font-weight : bold;
-}
-
-.bodyPage{
-    padding-top:60px;
-    padding-bottom:100px;
-}
-
-.col-form-legend, .form-control-label{
+.sectionTitle {
     font-size: 14px;
-    font-family : Arial, Helvetica, sans-serif;
-    font-weight : normal;
+    font-weight: bold;
+}
+
+.bodyPage {
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+.col-form-legend, .form-control-label {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
 
 }
 
 body {
-    #color : #999999;
+    #color: #999999;
 }
 
-
-input#home_page_nbPersons.form-control
-{
-    width : 50px;
+input#home_page_nbPersons.form-control {
+    width: 50px;
 }
 
-input#home_page_visitDate.form-control
-{
-    width : 200px;
+input#home_page_visitDate.form-control {
+    width: 200px;
 }
 
-.homeDiv{
-    background-color:#d5d393;
-    padding : 20px;
-    padding-bottom : 40px;
+.homeDiv {
+    background-color: #d5d393;
+    padding: 20px;
+    padding-bottom: 40px;
     border-radius: 4px;
     margin-bottom: 30px;
 
@@ -63,38 +59,40 @@ input#home_page_visitDate.form-control
     font-size:14px;
 }*/
 
-#home_page_save{
-    background-color:#313131;
-    color:#fff;
+#home_page_save {
+    background-color: #313131;
+    color: #fff;
 }
 
-.hidden{
-    display:none;
+.hidden {
+    display: none;
 }
 
 #transaction_nbPersons {
-    width : 60px;
+    width: 60px;
 }
 
 #transaction_visitDate, #transaction_persons_0_birth {
-    width : 150px;
-    }
+    width: 150px;
+}
 
 .btnSave {
-    background-color:#776639;
-    color:#fff;
-    border-width : 0px;
-    margin-right : 10px;
-    margin-top : 20px;}
+    background-color: #776639;
+    color: #fff;
+    border-width: 0px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
 
 .btnHome {
-    background-color:#d5d393;
-    color:#000;
-    border-width : 0px;
-    margin-right : 10px;
-    margin-top:40px;}
+    background-color: #d5d393;
+    color: #000;
+    border-width: 0px;
+    margin-right: 10px;
+    margin-top: 40px;
+}
 
-.btnSave:hover,.btnSave:active,.btnSave:focus,.btnSave:active:focus, .btnSave.active:focus{
+.btnSave:hover, .btnSave:active, .btnSave:focus, .btnSave:active:focus, .btnSave.active:focus {
     background-color: #886711;
     border: 0px none;
     margin-right: 10px;
@@ -104,34 +102,34 @@ input#home_page_visitDate.form-control
 
 }
 
-
-
 .indication {
-    color : #313131;
-    font-style : italic;
+    color: #313131;
+    font-style: italic;
 }
 
 .general {
-    margin-left : 20px;
+    margin-left: 20px;
 }
 
 h2 {
 
-    font-size : 24px;
-    margin-bottom : 10px;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 h3 {
-    font-size:22px;
-}
+    font-size: 21px;
+    margin-bottom: 20px;
 
+}
 
 h4 {
-    margin-bottom : 30px;
+    margin-bottom: 30px;
+
 }
 
-label{
-    margin-right:10px;
+label {
+    margin-right: 10px;
 }
 
 /**
@@ -161,42 +159,58 @@ label{
     background-color: #fefde5 !important;
 }
 
-#card-errors{
-    color:red;
+#card-errors {
+    color: red;
 }
 
-#informations{
-    margin-bottom : 80px;
+#informations {
+    margin-bottom: 80px;
 }
 
-.museumInfo{
-    background-color:#F7F3ED;
-    padding-top:20px;
-    padding-bottom:20px;
+.museumInfo {
+    background-color: #F7F3ED;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
 }
 
-.museumInfo p{
-    margin-bottom:8px;
-    line-height:15px;
+.museumInfo p {
+    margin-bottom: 8px;
+    line-height: 15px;
 }
 
-.homeText, .pageText{
-    padding-top:20px;
-    padding-bottom:50px;
-    padding-left:0px;
+.homeText, .pageText {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
 
-    font-size:16px;
+    font-size: 16px;
 }
 
-.formHomeTitle{
-    margin-bottom:30px;
+.formHomeTitle {
+    margin-bottom: 30px;
 }
 
-.paymentForm{
-    background-color:#d5d393;
-    padding : 20px;
-    padding-bottom : 40px;
+.paymentForm {
+    background-color: #d5d393;
+    padding: 20px;
+    padding-bottom: 40px;
     border-radius: 4px;
     margin-top: 30px;
+}
+
+#totalTransactionText {
+    font-size : 18px;
+    font-weight : bold;
+}
+
+#informationText {
+    margin-top : 30px;
+    margin-bottom : 40px;
+}
+
+#totalTransaction {
+    border:1px solid #886711;
+    padding:5px;
+    max-width : 350px;
 }

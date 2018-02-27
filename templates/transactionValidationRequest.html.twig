@@ -1,21 +1,22 @@
 {% extends "transactionSummary.html.twig" %}
-{% block body %}
 
-<div class="general">
-    <br/><br/>
-    <h2>Votre commande</h2>
-    <br/><br/>
-    {{ dump(chaine2) }}
-    {{ dump(chaine) }}
-
-{{ parent() }}
+{% block title %}Validation commande{% endblock %}
 
 
-    <a href="{{ path("cardNumber") }}" class='btn btn btn-info btnSave'>payer</a>
-    <a href="{{ path("formTransaction") }}" class='btn btn btn-info btnSave'>Modifier</a>
 
-    <br/><br/>
+        {% block pageTitle %}
+            Vérification de votre commande
+        {% endblock %}
 
 
-</div>
-{% endblock %}
+        {% block bodyPage %}
+            <p id="informationText">Veuillez vérifier votre commande et la valider pour procéder au paiement.</p>
+
+            <br/><br/>
+            {{ parent() }}
+            <br/><br/>
+
+            <a href="{{ path("cardNumber") }}" class='btn btn btn-info btnSave'>payer</a>
+            <a href="{{ path("formTransaction") }}" class='btn btn btn-info btnSave'>Modifier</a>
+
+        {% endblock %}

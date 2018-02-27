@@ -36,9 +36,6 @@ use App\Service\TransactionDataRecovery;
 use App\Repository\TransactionRepository;
 
 
-
-
-
 class TransactionController extends Controller
 {
 
@@ -85,7 +82,7 @@ class TransactionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()
-            //&& $form->isValid()
+            && $form->isValid()
         ) {
 
             // Création d'une entité transaction pour préparer les données de BD
@@ -142,35 +139,33 @@ class TransactionController extends Controller
             $transactionCodeDebut = $applicantNameDebut . $year . $month . $day;
             $transactionCodeTable = $transactionRepository->findTransactionsByTransactionCode($transactionCodeDebut);
 
-            if(empty($transactionCodeTable)){
-                $finalTransactionCode = $transactionCodeDebut."00";
-            }
-            else{
-                $transactionCodeMaxi=substr(max($transactionCodeTable)['transactionCode'],-2);
-                if($transactionCodeMaxi < 9) {
+            if (empty($transactionCodeTable)) {
+                $finalTransactionCode = $transactionCodeDebut . "00";
+            } else {
+                $transactionCodeMaxi = substr(max($transactionCodeTable)['transactionCode'], -2);
+                if ($transactionCodeMaxi < 9) {
                     $finalTransactionCode = $transactionCodeDebut . "0" . ($transactionCodeMaxi + 1);
-                }
-                else{
-                    $finalTransactionCode = $transactionCodeDebut .($transactionCodeMaxi + 1);
+                } else {
+                    $finalTransactionCode = $transactionCodeDebut . ($transactionCodeMaxi + 1);
                 }
             }
 
             $transaction->setTransactionCode($finalTransactionCode);
 
-        // Envoi de l'entité transaction et du montant de la commande dans la session
-        $session->set('transaction', $transaction);
-        $session->set('totalTransaction', $totalTransaction);
+            // Envoi de l'entité transaction et du montant de la commande dans la session
+            $session->set('transaction', $transaction);
+            $session->set('totalTransaction', $totalTransaction);
 
 
-        // Affichage du récapitulatif de la commande
-        return $this->render("transactionValidationRequest.html.twig", [
-                //'transactionId' => $transaction->getId(),
-                'transaction' => $transaction,
-                'totalTransaction' => $totalTransaction,
-                'chaine' => $finalTransactionCode,
-                'chaine2' =>$year
-            ]
-        );
+            // Affichage du récapitulatif de la commande
+            return $this->render("transactionValidationRequest.html.twig", [
+                    //'transactionId' => $transaction->getId(),
+                    'transaction' => $transaction,
+                    'totalTransaction' => $totalTransaction,
+                    'chaine' => $finalTransactionCode,
+                    'chaine2' => $year
+                ]
+            );
         };
 
         // Affichage du formulaire de transaction
