@@ -4,8 +4,7 @@
 
 
 
-
-            {% block bodyPage %}
+{% block bodyPage %}
 
     <div class="container col-lg-8">
 
@@ -24,8 +23,11 @@
 
             {{ form_start(form, {'attr':{'class':'form-stacked'}}) }}
 
-
-            {{ form_row(form.nbPersons) }}
+            <div class="required">
+                {{ form_label(form.nbPersons)}}
+                {{ form_widget(form.nbPersons) }}
+                {{ form_errors(form.nbPersons)}}
+            </div>
 
             <br/>
 
@@ -39,10 +41,11 @@
             {{ form_widget(form.transactionCode, {'attr' : { 'style':'display:none'}}) }}
 
             {{ form_row(form.save) }}
-            {#{{ form_row(form._token) }}#}
             {{ form_end(form) }}
         </div>
     </div>
+
+
     <div class="col-lg-3  col-lg-offset-1 museumInfo">
         <h3>Tarifs </h3>
         <p>Plein : 16€ </p>
@@ -53,7 +56,8 @@
         <h3>Jours de fermeture :</h3>
         <p>Chaque mardi et dimanche, jours fériés </p>
     </div>
-            {% endblock %}
+
+{% endblock %}
 
 
 

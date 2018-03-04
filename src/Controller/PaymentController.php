@@ -24,6 +24,14 @@ use DateInterval;
 use Doctrine\Common\Collections\ArrayCollection;
 use Stripe\Stripe;
 use App\Service\PaymentStatusAction;
+use Swift_SmtpTransport;
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
+
 
 
 class PaymentController extends Controller
@@ -49,13 +57,35 @@ class PaymentController extends Controller
             ));
 
             // Accès à la base de données, récupération de l'entité transaction,
-            // envoi en BDD (PROVISOIRE sera mis après vérif paiement)
-            $message = "ok";
             $em = $this->getDoctrine()->getManager();
             $transaction = $session->get('transaction');
 
             $em->persist($transaction);
             $em->flush();
+
+            //return $this->redirectToRoute("validation");
+
+
+
+
+            // Create the Transport
+            $transport = (new Swift_SmtpTransport('auth.smtp.1and1.fr', 465))
+                ->setUsername('sylvie@hevie.fr')
+                ->setPassword('onOrange4201*')
+                ->setEncryption('ssl');
+            ;
+
+// Create the Mailer using your created Transport
+            $mailer = new Swift_Mailer($transport);
+
+            // Create a message
+            $message = (new Swift_Message('Vos billets suite à votre commande'))
+                ->setFrom(['sylvie@hevie.fr' => 'Sylvie'])
+                ->setTo(['sylviepil1l1@gmail.com' => 'Sylvie'])
+                ->setBody("grrr");
+
+            // Send the message
+            $mailer->send($message);
 
 
             return $this->render("validatedTransaction.html.twig",
@@ -63,7 +93,6 @@ class PaymentController extends Controller
                     //'transactionId' => $transaction->getId(),
                     'transaction' => $session->get('transaction'),
                     'totalTransaction' => $session->get('totalTransaction'),
-                    'message' => $message,
                 )
             );
 
@@ -83,15 +112,38 @@ class PaymentController extends Controller
 
         return $this->render("cardNumber.html.twig",
             array(
-                //'transactionId' => $transaction->getId(),
                 'transaction' => $session->get('transaction'),
                 'totalTransaction' => $session->get('totalTransaction'),
                 'paymentError' => $session->get('paymentError'),
-                'message' => "essai"
             )
         );
 
 
     }
 
+    public function sendSpoolAction($messages = 10, KernelInterface $kernel)
+    {
+        $application = new Application($kernel);
+        $application->setAutoExit(false);
+
+        $input = new ArrayInput(array(
+            'command' => 'swiftmailer:spool:send',
+            // (optional) define the value of command arguments
+            'fooArgument' => 'barValue',
+            // (optional) pass options to the command
+            '--message-limit' => $messages,
+        ));
+
+        // You can use NullOutput() if you don't need the output
+        $output = new BufferedOutput();
+        $application->run($input, $output);
+
+        // return the output, don't use if you used NullOutput()
+        $content = $output->fetch();
+
+        // return new Response(""), if you used NullOutput()
+        return new Response($content);
+    }
+
 }
+

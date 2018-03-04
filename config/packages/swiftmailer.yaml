@@ -1,3 +1,22 @@
 swiftmailer:
     url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
+    #spool: { type: 'memory' }
+
+#    transport:            smtp
+#    username:             sylvie@hevie.fr
+#    password:             onOrange4201*
+#    host:                 auth.smtp.1and1.fr
+#    port:                 465
+#    encryption:           ssl
+#    auth_mode:            login
+#    spool:
+#        type:                 file
+#        path:                 '%kernel.cache_dir%/swiftmailer/spool'
+#    sender_address:       sylvie@hevie.fr
+#    antiflood:
+#        threshold:            99
+#        sleep:                0
+#    delivery_addresses:   []
+#    disable_delivery:     ~
+#    logging:              '%kernel.debug%'
+

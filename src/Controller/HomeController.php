@@ -53,7 +53,7 @@ class HomeController extends Controller
             // Redirection sur le la création du reste du formulaire transacttion + personnes
             return $this->redirectToRoute("formTransaction");
         }
-        // Affichate de la page d'accueil
+        // Affichage de la page d'accueil
         return $this->render('homePage.html.twig', array(
             'form' => $form->createView(),
         ));

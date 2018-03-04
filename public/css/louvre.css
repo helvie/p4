@@ -214,3 +214,6 @@ label {
     padding:5px;
     max-width : 350px;
 }
+.required label:after{
+    content: "* ";
+}
