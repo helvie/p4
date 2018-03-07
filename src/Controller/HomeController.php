@@ -34,6 +34,7 @@ class HomeController extends Controller
         $session->remove('transaction');
         $session->remove('totalTransaction');
 
+
         // Création d'un formulaire avec l'entité transaction
         $transaction = new transaction();
 

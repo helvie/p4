@@ -35,14 +35,14 @@
 
                 {% endif %}
 
-                {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places '}) }}
+                {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places ','attr': {'required': 'true'}}) }}
                 <br/><br/>
                 {{ form_widget(form.nbPersons, {'attr' : { 'style':'display:none'}}) }}
                 {{ form_widget(form.visitDate, {'attr' : { 'style':'display:none'}}) }}
                 {{ form_widget(form.transactionCode, {'attr' : { 'style':'display:none'}}) }}
 
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 form">
 
                     {% set nbFormPersons = 0 %}
                     {% for person in form.persons %}
@@ -53,16 +53,46 @@
                             {% else %}
                                 <h4>Renseignements visiteur {{ loop.index }}</h4>
                             {% endif %}
-                            <p>{{ form_row(person.name, {'label':'Nom'}) }}</p>
-                            <p>{{ form_row(person.firstName, {'label':'Prénom'}) }}</p>
-                            <p>{{ form_row(person.country , {'label':'Pays'}) }}</p>
-                            <p>{{ form_row(person.birth,{'label':'Date de naissance'}) }}</p>
+
+                            <div class="required constraintMessage">
+                                {{ form_label(person.name, 'Nom :') }}
+                                {{ form_widget(person.name, {'attr': {'required': 'true'}}) }}
+                            </div><div class="constraintMessageDiv">
+                                   {{ form_errors(person.name) }}
+                                </div>
+
+
+                            <div class="required constraintMessage">
+                                {{ form_label(person.firstName, 'Prénom :') }}
+                                {{ form_widget(person.firstName, {'attr': {'required': 'true'}}) }}
+                            </div><div class="constraintMessageDiv">
+                                    {{ form_errors(person.firstName) }}
+                                </div>
+
+
+                            <div class="required constraintMessage">
+                                {{ form_label(person.country, 'Pays :') }}
+                                {{ form_widget(person.country, {'attr': {'required': 'true'}}) }}
+                            </div><div class="constraintMessageDiv">
+                                  {{ form_errors(person.country) }}
+                                </div>
+
+
+                            <div class="required constraintMessage">
+                                <p>{{ form_label(person.birth) }}
+                                    {{ form_widget(person.birth, {'attr': {'required': 'true'}}) }}
+                                </p>
+                            </div><div class="constraintMessageDiv">
+                                    {{ form_errors(person.birth) }}
+                                </div>
+
+
                             {% set reducedPriceId = "reducedPrice" ~ loop.index %}
                             <div style="padding-bottom:50px" ;>
                                 <p>{{ form_row(person.reduction, {'label':'Bénéficiaire d\'un tarif réduit', 'attr':
                                         {'id':reducedPriceId, 'class':"reducedPriceClass"}}) }}
                                     (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...)</p>
-                                <p id="annotation" style="color:red;display:none;">Attention...la carte attestant de votre droit
+                                <p id="annotation" style="display:none;">Attention...la carte attestant de votre droit
                                     a un tarif réduit vous sera demandée à l'entrée du musée
                                 </p></div>
                         </div>

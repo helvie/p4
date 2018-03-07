@@ -29,23 +29,48 @@ class Person
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=2,max=30,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 30 caractères")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Le nom ne doit pas contenir de chiffre"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=2,max=30,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 30 caractères")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Le prénom ne doit pas contenir de chiffre"
+     * )
+     *
      */
     private $firstName;
 
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(min=2,max=30,minMessage="Veuillez saisir 2 caractères minimum ", maxMessage="Veuillez saisir un maximum de 30 caractères")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="La ville ne doit pas contenir de chiffre"
+     * )
+     *
      */
     private $country;
 
 
     /**
      * @ORM\Column(type="date")
+     *
+     * @Assert\LessThan(value = "today", message = "La date de naissance est invalide")
+     * @Assert\GreaterThan(value = "-120 years", message = "La date de naissance est invalide")
+
+     *
      */
     private $birth;
 

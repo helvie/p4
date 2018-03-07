@@ -28,11 +28,11 @@ class PaymentStatusAction
 
     public function StripeError($error)
     {
-        $messageError = $error;
+        $messageError = "L'erreur suivante s'est produite :".$error;
 
         // Create a message
-        $message = (new Swift_Message('Vos billets suite à votre commande'))
-            ->setFrom(['sylviepil1l1@gmail.com' => 'Sylvie'])
+        $message = (new Swift_Message("Une erreur s'est produite lors d'une commande"))
+            ->setFrom(['sylvie@hevie.fr' => 'Sylvie'])
             ->setTo(['sylviepil1l1@gmail.com' => 'Sylvie'])
             ->setBody($messageError);
 

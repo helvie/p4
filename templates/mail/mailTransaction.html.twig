@@ -1,0 +1,69 @@
+
+{% block title %}Confirmation commande{% endblock %}
+
+
+
+        {% block pageTitle %}
+            Récapitulatif de votre commande
+        {% endblock %}
+
+
+        {% block bodyPage %}
+
+            <p id="informationText">Nous vous remercions pour votre commande. Vous devez être muni d'une copie de ce mail lors de votre venue au musée.</p>
+
+            N° de commande : <strong>{{ transaction.transactionCode }}</strong>
+
+            <br/><br/>
+
+                <h3>Venue :</h3>
+
+                Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
+                <br/><br/>
+
+                Durée visite :
+                {% if  transaction.halfDay == 0 %}
+                    <strong>Journée entière</strong>
+                {% else %}
+                    <strong>Demi-journée</strong>
+                {% endif %}
+                <br/><br/>
+
+                Email : <strong>{{ transaction.email }}</strong>
+                <br/><br/><br/>
+
+                <h3>Visiteurs :</h3>
+
+                {% for person in transaction.persons %}
+                    Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
+                    <br/>
+                    Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays :
+                    <strong>{{ person.country }}</strong>
+                    <br/>
+                    Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
+                    - Carte réduction :
+                    {% if  person.reduction == 0 %}
+                        <strong>Non</strong>
+                        <br/>
+                    {% else %}
+                        <strong>Oui</strong>
+                        <br/>
+                        <div style="color:red;">
+                            N'oubliez pas de vous munir de la carte attestant de du droit a un tarif réduit<br/>
+                            (étudiant, employé du musée,
+                            d'un service du Ministère de la culture, militaire...)
+                            </div>
+                    {% endif %}
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                {% endfor %}
+                <div id = "totalTransaction">Montant de la commande :
+                    <span id="totalTransactionText">{{ totalTransaction }} euros</span></div>
+                <br/><br/>
+
+
+        {% endblock %}
+

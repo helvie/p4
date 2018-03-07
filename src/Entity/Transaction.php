@@ -30,11 +30,13 @@ class Transaction {
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
-     * @Assert\GreaterThanOrEqual("today")
+     * @Assert\GreaterThanOrEqual(value = "today", message = "La date choisie est passée")
+     * @Assert\LessThanOrEqual(value = "+5 years", message = "Veuillez choisir une date antérieure (5 années maximum)")
      * @AcmeAssert\WeeklyClosingDate
      * @AcmeAssert\WithoutReservationDate
      * @AcmeAssert\HolidayDate
      * @AcmeAssert\FullDate
+     * @AcmeAssert\TodayEvening
      */
     private $visitDate;
 
@@ -44,6 +46,8 @@ class Transaction {
     private $halfDay;
 
     /**
+     * @Assert\LessThanOrEqual(value = "30", message = "Pour les groupes supérieurs à 30 personnes, merci de nous contacter")
+     * @Assert\GreaterThan(value = "0", message = "Vous devez entrer un nombre valide")
      * @ORM\Column(type="integer")
      */
     private $nbPersons;
@@ -61,7 +65,10 @@ class Transaction {
 
     /**
     * @ORM\OneToMany(targetEntity="Person", mappedBy="transaction", cascade="all", orphanRemoval=true)
-    */
+     *
+     *  @Assert\Valid
+     */
+
     protected $persons;
 
 

@@ -23,16 +23,18 @@
 
             {{ form_start(form, {'attr':{'class':'form-stacked'}}) }}
 
-            <div class="required">
+            <div class="required constraintMessage">
                 {{ form_label(form.nbPersons)}}
-                {{ form_widget(form.nbPersons) }}
+                {{ form_widget(form.nbPersons, {'attr': {'required': 'true'}}) }}
                 {{ form_errors(form.nbPersons)}}
             </div>
 
             <br/>
-
-            {{ form_row(form.visitDate) }}
-
+            <div class="required constraintMessage">
+                {{ form_label(form.visitDate) }}
+                {{ form_widget(form.visitDate, {'attr': {'required': 'true'}}) }}
+                {{form_errors(form.visitDate) }}
+            </div>
             <br/>
 
             {{ form_widget(form.persons, {'attr' : { 'style':'display:none'}}) }}

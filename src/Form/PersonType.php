@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 
 class PersonType extends AbstractType
@@ -28,7 +30,8 @@ class PersonType extends AbstractType
             ->add('country', TextType::class, [
                 'data' => 'France'])
             ->add('birth', DateType::class,
-                ['widget' => 'single_text'
+                ['widget' => 'single_text',
+                'label' => 'Date de naissance',
                 ])
             // ->add('price', HiddenType::class)
             ->add('reduction', CheckboxType::class, ['required' => false]);

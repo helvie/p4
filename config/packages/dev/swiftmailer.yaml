@@ -1,5 +1,6 @@
 swiftmailer:
     url: '%env(MAILER_URL)%'
+    transport: mail
     # See https://symfony.com/doc/current/email/dev_environment.html
 #swiftmailer:
     # send all emails to a specific address

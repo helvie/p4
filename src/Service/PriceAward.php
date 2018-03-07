@@ -18,9 +18,9 @@ class PriceAward
 {
     public function priceCalculation($birthday, $reduction)
     {
-
-        $dateJour = new DateTime();
-        $age = $birthday->diff($dateJour)->format('%y');
+        $dateToday = new DateTime();
+        $age1 = $birthday->diff($dateToday);
+        $age = $age1->format('%y');
 
         if ($age < 4) {
             $price = 0;

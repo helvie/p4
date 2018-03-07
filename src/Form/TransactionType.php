@@ -30,9 +30,12 @@ class TransactionType extends AbstractType
                 'label' => "A quelle date souhaitez-vous venir ?",
                 'widget' => 'single_text',
                 'required' => false,])
+
             ->add('nbPersons', NumberType::class, [
                 'label' => "Combien de personnes serez-vous ?",
-                'required' => false,])
+                'required' => false,
+                'invalid_message' => 'Vous devez entrer un nombre'])
+
             ->add('halfDay', CheckboxType::class, array('required' => false, 'label' => false,))
             ->add('email', EmailType::class, array('required' => false,))
             ->add('persons', CollectionType::class, array(

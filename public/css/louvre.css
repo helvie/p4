@@ -1,47 +1,172 @@
-.title {
+
+body {
+    #color: #999999;
 }
 
-.personSection {
-    padding-top: 20px;
-    margin-bottom: 30px;
-    margin-right: 20px;
-    /*border : solid 2px #9e721c;*/
-    background-color: #d5d393;
-    border-radius: 4px;
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
+
+
+h3 {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+
+h4 {
+    margin-bottom: 30px;
+}
+
+
+input#home_page_nbPersons.form-control {
+    width: 50px;
+}
+
+
+input#home_page_visitDate.form-control {
+    width: 200px;
+}
+
+
+label {
+    margin-right: 10px;
+}
+
+#annotation{
+    color:#a3410b;
+}
+
+
+#card-errors {
+    color: red;
+}
+
+
+#home_page_save {
+    background-color: #313131;
+    color: #fff;
+}
+
+
+#informations {
+    margin-bottom: 80px;
+}
+
+
+#informationText {
+    margin-top : 30px;
+    margin-bottom : 40px;
+}
+
+
+
+#totalTransaction {
+    border:1px solid #886711;
+    padding:5px;
+    max-width : 350px;
+}
+
+
+#totalTransactionText {
+    font-size : 18px;
+    font-weight : bold;
+}
+
 
 #transaction_email.form-control {
     width: 300px;
 }
 
-.sectionTitle {
-    font-size: 14px;
-    font-weight: bold;
+
+#transaction_nbPersons {
+    width: 60px;
 }
+
+
+#transaction_visitDate, #transaction_persons_0_birth {
+    width: 150px;
+}
+
 
 .bodyPage {
     padding-top: 60px;
     padding-bottom: 100px;
 }
 
+
+.btnHome {
+    background-color: #d5d393;
+    color: #000;
+    border-width: 0px;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+
+
+.btnSave {
+    background-color: #776639;
+    color: #fff;
+    border: 0px none;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+
+.btnSave:hover, .btnSave:active, .btnSave:focus, .btnSave:active:focus, .btnSave.active:focus {
+    background-color: #3F2204;
+    color:#fff;
+    /*border: 0px none;*/
+    /*margin-right: 10px;*/
+    /*margin-top: 20px;*/
+    outline: none;
+    box-shadow: none;
+}
+
+
 .col-form-legend, .form-control-label {
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: normal;
+    font-weight: normal;}
 
+
+.constraintMessage li{
+    margin-top:5px;
+    color : red;
 }
 
-body {
-    #color: #999999;
+
+.constraintMessageDiv li{
+    color : red;
 }
 
-input#home_page_nbPersons.form-control {
-    width: 50px;
+
+.constraintMessageDiv{
+    height : 25px;
 }
 
-input#home_page_visitDate.form-control {
-    width: 200px;
+
+.form div{
+    margin-bottom : 10px;
 }
+
+
+.formHomeTitle {
+    margin-bottom: 30px;
+}
+
+
+.general {
+    margin-left: 20px;
+}
+
+
+.hidden {
+    display: none;
+}
+
 
 .homeDiv {
     background-color: #d5d393;
@@ -52,90 +177,67 @@ input#home_page_visitDate.form-control {
 
 }
 
-/*legend.col-form-legend.required, label.form-control-label.required {
-    border-bottom : none;
-    margin-bottom : 10px;
-    margin-top : 15px;
-    font-size:14px;
-}*/
 
-#home_page_save {
-    background-color: #313131;
-    color: #fff;
+.homeText, .pageText {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    font-size: 16px;
 }
 
-.hidden {
-    display: none;
-}
-
-#transaction_nbPersons {
-    width: 60px;
-}
-
-#transaction_visitDate, #transaction_persons_0_birth {
-    width: 150px;
-}
-
-.btnSave {
-    background-color: #776639;
-    color: #fff;
-    border-width: 0px;
-    margin-right: 10px;
-    margin-top: 20px;
-}
-
-.btnHome {
-    background-color: #d5d393;
-    color: #000;
-    border-width: 0px;
-    margin-right: 10px;
-    margin-top: 40px;
-}
-
-.btnSave:hover, .btnSave:active, .btnSave:focus, .btnSave:active:focus, .btnSave.active:focus {
-    background-color: #886711;
-    border: 0px none;
-    margin-right: 10px;
-    margin-top: 30px;
-    outline: none;
-    box-shadow: none;
-
-}
 
 .indication {
     color: #313131;
     font-style: italic;
 }
 
-.general {
-    margin-left: 20px;
+
+.input{
+    margin-bottom : 10px;
 }
 
-h2 {
 
-    font-size: 24px;
-    margin-bottom: 20px;
+.museumInfo {
+    background-color: #F7F3ED;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-h3 {
-    font-size: 21px;
-    margin-bottom: 20px;
 
+.museumInfo p {
+    margin-bottom: 8px;
+    line-height: 15px;
 }
 
-h4 {
+
+.personSection {
+    padding-top: 20px;
     margin-bottom: 30px;
-
+    margin-right: 20px;
+    background-color: #d5d393;
+    border-radius: 4px;
 }
 
-label {
-    margin-right: 10px;
+
+.paymentForm {
+    background-color: #d5d393;
+    padding: 20px;
+    padding-bottom: 40px;
+    border-radius: 4px;
+    margin-top: 30px;
 }
 
-/**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
+
+.required label:after{
+    content: "* ";
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
 .StripeElement {
     background-color: white;
     height: 40px;
@@ -147,73 +249,17 @@ label {
     transition: box-shadow 150ms ease;
 }
 
+
 .StripeElement--focus {
     box-shadow: 0 1px 3px 0 #cfd7df;
 }
+
 
 .StripeElement--invalid {
     border-color: #fa755a;
 }
 
+
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
-}
-
-#card-errors {
-    color: red;
-}
-
-#informations {
-    margin-bottom: 80px;
-}
-
-.museumInfo {
-    background-color: #F7F3ED;
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-}
-
-.museumInfo p {
-    margin-bottom: 8px;
-    line-height: 15px;
-}
-
-.homeText, .pageText {
-    padding-top: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-
-    font-size: 16px;
-}
-
-.formHomeTitle {
-    margin-bottom: 30px;
-}
-
-.paymentForm {
-    background-color: #d5d393;
-    padding: 20px;
-    padding-bottom: 40px;
-    border-radius: 4px;
-    margin-top: 30px;
-}
-
-#totalTransactionText {
-    font-size : 18px;
-    font-weight : bold;
-}
-
-#informationText {
-    margin-top : 30px;
-    margin-bottom : 40px;
-}
-
-#totalTransaction {
-    border:1px solid #886711;
-    padding:5px;
-    max-width : 350px;
-}
-.required label:after{
-    content: "* ";
 }

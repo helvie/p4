@@ -1,14 +1,16 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
-    #spool: { type: 'memory' }
+    #url: '%env(MAILER_URL)%'
 
-#    transport:            smtp
+
+    #spool: { type: 'memory' }
+#
+#    transport:            sendmail
 #    username:             sylvie@hevie.fr
 #    password:             onOrange4201*
 #    host:                 auth.smtp.1and1.fr
-#    port:                 465
+#    port:                 587
 #    encryption:           ssl
-#    auth_mode:            login
+#    auth_mode:            ~
 #    spool:
 #        type:                 file
 #        path:                 '%kernel.cache_dir%/swiftmailer/spool'

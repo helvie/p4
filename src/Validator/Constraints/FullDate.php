@@ -18,7 +18,7 @@ use Doctrine\ORM\Entity;
  */
 class FullDate extends Constraint
 {
-    public $message = "C'est complet !";
+    public $message = "Il n'y a plus de place disponible à cette date !";
 
     public function validatedBy()
     {

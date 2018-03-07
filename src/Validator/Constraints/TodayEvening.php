@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Entity;
 
 /**
- * Class HolidayDate
+ * Class WithoutReservationDate
  * @package App\Validator\Constraints
  * @Annotation
  */
-class HolidayDate extends Constraint
+class TodayEvening extends Constraint
 {
-    public $message = "Veuillez choisir un jour non férié";
+    public $message = "Il n'est plus possible de réserver ce jour";
 
     public function validatedBy()
     {
