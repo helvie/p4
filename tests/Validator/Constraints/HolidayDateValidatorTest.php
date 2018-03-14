@@ -10,91 +10,80 @@ namespace Tests\Validator\Constraints;
 
 use App\Validator\Constraints\HolidayDate;
 use App\Validator\Constraints\HolidayDateValidator;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
+use DateTime;
+
 
 
 class HolidayDateValidatorTest extends TestCase
 {
-    private $constraint;
-    private $context;
-
-    public function setUp()
+    /**
+     * Configure a SomeConstraintValidator.
+     *
+     * @param string $expectedMessage The expected message on a validation violation, if any.
+     *
+     * @return App\Validator\Constraints\HolidayDateValidator;
+     */
+    public function configureValidator($expectedMessage = null)
     {
-        $this->constraint = new HolidayDate();
-        $this->context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')
-            ->disableOriginalConstructor()->getMock();
-    }
+        // mock the violation builder
+        $builder = $this->getMockBuilder('Symfony\Component\Validator\Violation\ConstraintViolationBuilder')
+            ->disableOriginalConstructor()
+            ->setMethods(array('addViolation'))
+            ->getMock()
+        ;
 
-    public function testValidate()
-    {
-        /*ConstraintValidator*/
+        // mock the validator context
+        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContext')
+            ->disableOriginalConstructor()
+            ->setMethods(array('buildViolation'))
+            ->getMock()
+        ;
+
+        if ($expectedMessage) {
+            $builder->expects($this->once())
+                ->method('addViolation')
+            ;
+
+            $context->expects($this->once())
+                ->method('buildViolation')
+                ->with($this->equalTo($expectedMessage))
+                ->will($this->returnValue($builder))
+            ;
+        }
+        else {
+            $context->expects($this->never())
+                ->method('buildViolation')
+            ;
+        }
+
+        // initialize the validator with the mocked context
         $validator = new HolidayDateValidator();
-        $validator->initialize($this->context);
+        $validator->initialize($context);
 
-        $this->context->expects($this->once())
-            ->method('addViolation')
-            ->with($this->constraint->message, array());
-        $validator->validate(\Datetime::createFromFormat("d/m/Y", "10/10/2000"), $this->constraint);
+        // return the SomeConstraintValidator
+        return $validator;
     }
 
-    public function tearDown()
+    /**
+     * Verify a constraint message is triggered when value is invalid.
+     */
+    public function testValidateOnInvalid()
     {
-        $this->constraint = null;
+        $constraint = new HolidayDate();
+        $validator = $this->configureValidator($constraint->message);
+
+        $validator->validate(new DateTime('2018-12-25'), $constraint);
+    }
+
+    /**
+     * Verify no constraint message is triggered when value is valid.
+     */
+    public function testValidateOnValid()
+    {
+        $constraint = new HolidayDate();
+        $validator = $this->configureValidator();
+
+        $validator->validate(new DateTime('2018-03-31'), $constraint);
     }
 }
-
-//
-//
-//namespace App\Validator\Constraints;
-//
-//use Symfony\Component\Validator\Constraint;
-//use Symfony\Component\Validator\ConstraintValidator;
-//use DateInterval;
-//use DateTime;
-////use Doctrine\ORM\Entity;
-//
-//
-//class HolidayDateValidator extends ConstraintValidator
-//{
-//
-//    public function validate($value, Constraint $constraint)
-//    {
-//        $year = $value->format('Y');
-//        $base = new DateTime("$year-03-21");
-//        $days = easter_days($year);
-//
-//        $easter = $base->add(new DateInterval("P{$days}D"));
-//        $easterM = date("Y-m-d", strtotime($easter->format("Y-m-d") . " +1 days"));
-//        $ascent = date("Y-m-d", strtotime($easter->format("Y-m-d") . " +39 days"));
-//        $pentecost = date("Y-m-d", strtotime($easter->format("Y-m-d") . " +50 days"));
-//
-//        $holidayArray = array($easterM, $ascent, $pentecost, "$year-01-01", "$year-05-01", "$year-05-08",
-//            "$year-07-14", "$year-08-15", "$year-11-01", "$year-11-11", "$year-12-25");
-//
-//        global $holiday;
-//        $holiday = false;
-//
-//        for ($i = 0; $i < count($holidayArray); $i++) {
-//            if ($value->format("Y-m-d") == $holidayArray[$i]) {
-//                $holiday = true;
-//                break;
-//            }
-//        }
-//        if ($holiday == true) {
-//            $this->context->buildViolation($constraint->message)
-//                ->addViolation();
-//        }
-//
-//    }
-//
-//}
-//
-//class HolidayDate extends Constraint
-//{
-//    public $message = "Veuillez choisir un jour non férié";
-//
-//    public function validatedBy()
-//    {
-//        return get_class($this) . 'Validator';
-//    }
-//}

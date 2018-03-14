@@ -41,25 +41,15 @@ class TransactionRepositoryTest extends KernelTestCase
 
 
 
-
     public function testGetNbVisitors()
     {
         $transactions = $this->entityManager
             ->getRepository(Transaction::class)
-            ->getNbVisitors(new DateTime('2018-03-30'))
+            ->getNbVisitors(new DateTime('2018-03-31'))
         ;
 
-        $this->assertCount(1, $transactions);
+        $this->assertGreaterThan(1000 , $transactions);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function tearDown()
-    {
-        parent::tearDown();
 
-        $this->entityManager->close();
-        $this->entityManager = null; // avoid memory leaks
-    }
 }

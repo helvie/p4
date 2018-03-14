@@ -37,7 +37,8 @@ class TransactionType extends AbstractType
             ->add('nbPersons', NumberType::class, [
                 'label' => "Combien de personnes serez-vous ?",
                 'required' => false,
-                'invalid_message' => 'Vous devez entrer un nombre'])
+                //'invalid_message' => 'Vous devez entrer un nombre'
+                ])
 
             ->add('halfDay', CheckboxType::class, array('required' => false, 'label' => false,))
 

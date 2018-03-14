@@ -17,11 +17,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 //use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 //use Symfony\Component\Validator\Constraints\Date;
-//use Symfony\Component\Validator\Constraints\LessThan;
+
 
 
 class PersonType extends AbstractType
 {
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,7 +36,6 @@ class PersonType extends AbstractType
             ->add('birth', DateType::class,
                 ['widget' => 'single_text',
                 'label' => 'Date de naissance',
-                'invalid_message' => 'Une date de naissance est obligatoire.'
                 ])
 
             ->add('reduction', CheckboxType::class, ['required' => false]);
