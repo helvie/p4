@@ -1,17 +1,18 @@
 
 body {
     #color: #999999;
+    font-family: Open Sans, sans-serif;
 }
 
 
 h2 {
-    font-size: 24px;
+    font-size: 30px;
     margin-bottom: 20px;
 }
 
 
 h3 {
-    font-size: 21px;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -40,6 +41,12 @@ label {
 }
 
 
+#bienvenue{
+    font-weight : bold;
+    font-size : 20px;
+    color : #886711;
+}
+
 #card-errors {
     color: red;
 }
@@ -58,7 +65,8 @@ label {
 
 #informationText {
     margin-top : 30px;
-    margin-bottom : 40px;
+    margin-bottom : 70px;
+    font-size : 16px;
 }
 
 
@@ -91,6 +99,13 @@ label {
 }
 
 
+#transactionCode {
+    font-weight : bold;
+    font-size : 16px;
+    color : #666;
+}
+
+
 .bodyPage {
     padding-top: 60px;
     padding-bottom: 100px;
@@ -100,7 +115,7 @@ label {
 .btnHome {
     background-color: #d5d393;
     color: #000;
-    border-width: 0px;
+    border-width: 0;
     margin-right: 10px;
     margin-top: 40px;
 }
@@ -109,7 +124,7 @@ label {
 .btnSave {
     background-color: #776639;
     color: #fff;
-    border: 0px none;
+    border: 0 none;
     margin-right: 10px;
     margin-top: 20px;
 }
@@ -148,6 +163,12 @@ label {
 }
 
 
+.data {
+    color : #886711;
+    font-size : 16px;
+}
+
+
 .form div{
     margin-bottom : 10px;
 }
@@ -181,7 +202,7 @@ label {
 .homeText, .pageText {
     padding-top: 20px;
     padding-bottom: 50px;
-    padding-left: 0px;
+    padding-left: 0;
     font-size: 16px;
 }
 

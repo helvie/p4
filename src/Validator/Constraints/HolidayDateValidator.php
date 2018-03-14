@@ -4,9 +4,10 @@ namespace App\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\Entity;
 use DateInterval;
 use DateTime;
+//use Doctrine\ORM\Entity;
+
 
 class HolidayDateValidator extends ConstraintValidator
 {
@@ -23,7 +24,7 @@ class HolidayDateValidator extends ConstraintValidator
         $pentecost = date("Y-m-d", strtotime($easter->format("Y-m-d") . " +50 days"));
 
         $holidayArray = array($easterM, $ascent, $pentecost, "$year-01-01", "$year-05-01", "$year-05-08",
-            "$year-07-14", "$year-08-15", "$year-11-01", "$year-11-11");
+            "$year-07-14", "$year-08-15", "$year-11-01", "$year-11-11", "$year-12-25");
 
         global $holiday;
         $holiday = false;

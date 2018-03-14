@@ -10,9 +10,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
 use App\Validator\Constraints as AcmeAssert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
@@ -65,7 +64,6 @@ class Transaction {
 
     /**
     * @ORM\OneToMany(targetEntity="Person", mappedBy="transaction", cascade="all", orphanRemoval=true)
-     *
      *  @Assert\Valid
      */
 

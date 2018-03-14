@@ -10,41 +10,35 @@
 
         {% block bodyPage %}
 
-            <h3>Venue :</h3>
+            <h3 style="margin-bottom:30px;">Venue :</h3>
 
-            Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
-            <br/><br/>
+            <p>Date de la visite : <span class = "data">{{ transaction.visitDate|date('d/m/Y') }}</span></p>
 
-            Durée visite :
+            <p>Durée visite :
             {% if  transaction.halfDay == 0 %}
-                <strong>Journée entière</strong>
+                <span class = "data">Journée entière</span>
             {% else %}
-                <strong>Demi-journée</strong>
-            {% endif %}
-            <br/><br/>
+            <span class = "data">Demi-journée</span>
+            {% endif %}</p>
 
-            Email : <strong>{{ transaction.email }}</strong>
-            <br/><br/><br/>
+            <p style="margin-bottom:50px;">Email : <span class="data">{{  transaction.email }}</span></p>
 
-            <h3>Visiteurs :</h3>
+
+            <h3 style="margin-bottom:30px;">Visiteurs : </h3>
 
             {% for person in transaction.persons %}
-                Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
-                <br/>
-                Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays :
-                <strong>{{ person.country }}</strong>
-                <br/>
-                Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
-                - Carte réduction :
+                <p>Nom :  <span class = "data">{{ person.name }}</span></p>
+                <p>Prénom : <span class = "data">{{ person.firstname }}</span></p>
+                <p>Date de naissance : <span class = "data">{{ person.birth|date('d/m/Y') }}</span></p>
+                <p>Pays : <span class = "data">{{ person.country }}</span></p>
+                <p>Tarif billet : <span class = "data">{{ priceCalculation(person.birth,person.reduction) }} euros</span></p>
+                <p style="margin-bottom : 40px;">Carte réduction :
                 {% if  person.reduction == 0 %}
-                    <strong>Non</strong>
+                        <span class = "data">Non</span>
                 {% else %}
-                    <strong>Oui</strong>
-                {% endif %}
+                            <span class = "data">Oui</span>
+                {% endif %}</p>
 
-                <br/>
-                <br/>
-                <br/>
 
             {% endfor %}
             <div id = "totalTransaction">Montant de la commande :

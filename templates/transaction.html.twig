@@ -88,25 +88,22 @@
 
 
                             {% set reducedPriceId = "reducedPrice" ~ loop.index %}
-                            <div style="padding-bottom:50px" ;>
+                            <div style="margin-bottom:60px" ;>
                                 <p>{{ form_row(person.reduction, {'label':'Bénéficiaire d\'un tarif réduit', 'attr':
-                                        {'id':reducedPriceId, 'class':"reducedPriceClass"}}) }}
+                                        {'id':'reducedPriceId', 'class':'reducedPriceClass'}}) }}
                                     (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...)</p>
                                 <p id="annotation" style="display:none;">Attention...la carte attestant de votre droit
                                     a un tarif réduit vous sera demandée à l'entrée du musée
                                 </p></div>
                         </div>
                     {% endfor %}
-
                     <div class="col-lg-12">
-                        {{ form_row(form.save, { 'label':'Valider'}) }}
+                        <a>{{ form_row(form.save, { 'label':'Valider'}) }}</a>
                     </div>
                     <div class="col-lg-12">
-
-                        <a href="{{ path("index") }}" class='btn btn btn-info btnHome'>Annuler la commande et revenir à
-                            l'accueil</a>
-                    </div>
-                </div>
+                        <a style="margin:0;" href='{{ path("index") }}' class='btn btn btn-info btnHome'>
+                            Annuler la commande et revenir à l'accueil</a></div>
+            </div>
 
 
                 {{ form_end(form) }}
@@ -121,17 +118,17 @@
     <script type="text/javascript">
 
 
-        var gerard = document.getElementsByClassName('reducedPriceClass');
+//        var gerard = document.getElementsByClassName('reducedPriceClass');
 
-        $(".reducedPriceClass").change(function (e) {
+        $(".reducedPriceClass").change(function(e) {
             var annotation = this.parentNode.parentNode.lastChild;
             if (this.checked) {
                 annotation.style.display = "";
-                this.parentNode.parentNode.style.paddingBottom = "0px";
+                this.parentNode.parentNode.style.marginBottom = "0px";
             }
             else {
                 annotation.style.display = "none";
-                this.parentNode.parentNode.style.paddingBottom = "50px";
+                this.parentNode.parentNode.style.marginBottom = "60px";
             }
         })
 

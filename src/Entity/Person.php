@@ -66,10 +66,8 @@ class Person
 
     /**
      * @ORM\Column(type="date")
-     *
      * @Assert\LessThan(value = "today", message = "La date de naissance est invalide")
      * @Assert\GreaterThan(value = "-120 years", message = "La date de naissance est invalide")
-
      *
      */
     private $birth;
@@ -91,13 +89,6 @@ class Person
 
 
 
-
-    public function getAge()
-    {
-        $dateInterval = $this->birth->diff(new \DateTime());
-
-        return $dateInterval->y;
-    }
 
 
     /**

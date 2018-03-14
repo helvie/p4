@@ -14,6 +14,3 @@ validPayment:
     path: /validPayment
     controller: App\Controller\PaymentController::validPayment
 
-validation:
-    path: /validation
-    controller: App\Controller\PaymentController::sendSpoolAction

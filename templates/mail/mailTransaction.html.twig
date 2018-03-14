@@ -1,67 +1,55 @@
 
-{% block title %}Confirmation commande{% endblock %}
-
-
-
-        {% block pageTitle %}
-            Récapitulatif de votre commande
-        {% endblock %}
+<h2>Confirmation de votre commande</h2>
 
 
         {% block bodyPage %}
 
-            <p id="informationText">Nous vous remercions pour votre commande. Vous devez être muni d'une copie de ce mail lors de votre venue au musée.</p>
+            <p style="margin-top : 30px; margin-bottom : 70px; font-size : 16px;">Nous vous remercions pour votre commande. Vous devez être muni d'une copie de ce mail lors de votre venue au musée.</p>
 
-            N° de commande : <strong>{{ transaction.transactionCode }}</strong>
+            <p style="margin-bottom : 30px;">N° de commande : <span style = "font-weight:bold; font-size:16px; color:#666;">{{ transaction.transactionCode }}</span></p>
 
-            <br/><br/>
 
-                <h3>Venue :</h3>
+            <h3 style="margin-bottom:30px;">Venue :</h3>
 
-                Date de la visite : <strong>{{ transaction.visitDate|date('d/m/Y') }}</strong>
-                <br/><br/>
+            <p>Date de la visite : <span style = "font-size:16px; color:#886711;">{{ transaction.visitDate|date('d/m/Y') }}</span></p>
 
-                Durée visite :
+            <p>Durée visite :
                 {% if  transaction.halfDay == 0 %}
-                    <strong>Journée entière</strong>
+                    <span style = "font-size:16px; color:#886711;">Journée entière</span>
                 {% else %}
-                    <strong>Demi-journée</strong>
-                {% endif %}
-                <br/><br/>
+                    <span style = "font-size:16px; color:#886711;">Demi-journée</span>
+                {% endif %}</p>
 
-                Email : <strong>{{ transaction.email }}</strong>
-                <br/><br/><br/>
+            <p style="margin-bottom:50px;">Email : <span style = "font-size:16px; color:#886711;">
+                    {{  transaction.email }}</span></p>
 
-                <h3>Visiteurs :</h3>
 
-                {% for person in transaction.persons %}
-                    Nom : <strong>{{ person.name }}</strong>  - Prénom : <strong>{{ person.firstname }}</strong>
-                    <br/>
-                    Date de naissance : <strong>{{ person.birth|date('d/m/Y') }}</strong>  - Pays :
-                    <strong>{{ person.country }}</strong>
-                    <br/>
-                    Tarif billet : <strong>{{ priceCalculation(person.birth,person.reduction) }} euros</strong>
-                    - Carte réduction :
+            <h3 style="margin-bottom:30px;margin-top:30px;">Billets : </h3>
+
+            {% for person in transaction.persons %}
+                <p>Nom :  <span style = "font-size:16px; color:#886711;">{{ person.name }}</span></p>
+                <p>Prénom : <span style = "font-size:16px; color:#886711;">{{ person.firstname }}</span></p>
+                <p>Date de naissance : <span style = "font-size:16px; color:#886711;">{{ person.birth|date('d/m/Y') }}</span></p>
+                <p>Pays : <span style = "font-size:16px; color:#886711;">{{ person.country }}</span></p>
+                <p>Tarif billet : <span style = "font-size:16px; color:#886711;">{{ priceCalculation(person.birth,person.reduction) }} euros</span></p>
+                <div style="margin-bottom : 60px;"><p>Carte réduction :
                     {% if  person.reduction == 0 %}
-                        <strong>Non</strong>
-                        <br/>
+                        <span style = "font-size:16px; color:#886711;">Non</span>
                     {% else %}
-                        <strong>Oui</strong>
-                        <br/>
+                        <span style = "font-size:16px; color:#886711;">Oui</span></p>
+
                         <div style="color:red;">
                             N'oubliez pas de vous munir de la carte attestant de du droit a un tarif réduit<br/>
                             (étudiant, employé du musée,
                             d'un service du Ministère de la culture, militaire...)
                             </div>
+
                     {% endif %}
-
-                    <br/>
-                    <br/>
-                    <br/>
-
+                </div>
                 {% endfor %}
-                <div id = "totalTransaction">Montant de la commande :
-                    <span id="totalTransactionText">{{ totalTransaction }} euros</span></div>
+                <div style = "border:1px solid #886711; padding:5px; max-width : 350px;">
+                    Montant de la commande :
+                    <span style="    font-size : 18px; font-weight : bold;">{{ totalTransaction }} euros</span></div>
                 <br/><br/>
 
 

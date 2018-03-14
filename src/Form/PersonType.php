@@ -15,28 +15,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\LessThan;
+//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//use Symfony\Component\Validator\Constraints\Date;
+//use Symfony\Component\Validator\Constraints\LessThan;
 
 
 class PersonType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class)
+
             ->add('firstName', TextType::class)
-            ->add('country', TextType::class, [
-                'data' => 'France'])
+
+            ->add('country', TextType::class)
+
             ->add('birth', DateType::class,
                 ['widget' => 'single_text',
                 'label' => 'Date de naissance',
+                'invalid_message' => 'Une date de naissance est obligatoire.'
                 ])
-            // ->add('price', HiddenType::class)
+
             ->add('reduction', CheckboxType::class, ['required' => false]);
 
     }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -45,4 +50,5 @@ class PersonType extends AbstractType
 
         ));
     }
+
 }

@@ -8,20 +8,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Person;
+
 use App\Entity\Transaction;
 use App\Form\TransactionType;
-use App\Service\PriceAward;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Entity;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Swift_Mailer;
-use Swift_Message;
-use DateTime;
-use DateInterval;
-use Doctrine\Common\Collections\ArrayCollection;
+
 
 
 class HomeController extends Controller

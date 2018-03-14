@@ -4,9 +4,10 @@ namespace App\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\Entity;
-use DateInterval;
 use DateTime;
+//use Doctrine\ORM\Entity;
+//use DateInterval;
+
 
 class TodayEveningValidator extends ConstraintValidator
 {
@@ -16,7 +17,7 @@ class TodayEveningValidator extends ConstraintValidator
         $today = new DateTime();
         if ($today->format("Y/M/D") == $value->format("Y/M/D"))
         {
-            if (($today->format('H'))>17) {
+            if (($today->format('H'))>=17) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

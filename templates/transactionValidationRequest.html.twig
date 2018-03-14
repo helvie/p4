@@ -12,11 +12,11 @@
         {% block bodyPage %}
             <p id="informationText">Veuillez vérifier votre commande et la valider pour procéder au paiement.</p>
 
-            <br/><br/>
-            {{ parent() }}
-            <br/><br/>
 
-            <a href="{{ path("validPayment") }}" class='btn btn btn-info btnSave'>payer</a>
+            {{ parent() }}
+
+
+            <a href="{{ path("cardNumber") }}" class='btn btn btn-info btnSave'>payer</a>
             <a href="{{ path("formTransaction") }}" class='btn btn btn-info btnSave'>Modifier</a>
 
         {% endblock %}

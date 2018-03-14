@@ -13,11 +13,11 @@
 
             <p id="informationText">Nous vous remercions pour votre commande. Un mail vient de vous être envoyé. Vous devez être muni de celui-ci lors de votre venue au musée.</p>
 
-            N° de commande : <strong>{{ transaction.transactionCode }}</strong>
+            N° de commande : <span id="transactionCode">{{ transaction.transactionCode }}</span>
 
-            <br/><br/>
+
             {{ parent() }}
-            <br/><br/>
+
 
             <a href="{{ path("index") }}" class='btn btn btn-info btnSave'>Revenir à l'accueil</a>
 
