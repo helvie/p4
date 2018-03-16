@@ -25,14 +25,14 @@
 
             <div class="required constraintMessage">
                 {{ form_label(form.nbPersons)}}
-                {{ form_widget(form.nbPersons, {'attr': {'required': 'true'}}) }}
+                {{ form_widget(form.nbPersons, {'attr': {'required': true}}) }}
                 {{ form_errors(form.nbPersons)}}
             </div>
 
             <br/>
             <div class="required constraintMessage">
                 {{ form_label(form.visitDate) }}
-                {{ form_widget(form.visitDate, {'attr': {'required': 'true'}}) }}
+                {{ form_widget(form.visitDate, {'attr': {'required': true}}) }}
                 {{form_errors(form.visitDate) }}
             </div>
             <br/>
@@ -42,19 +42,18 @@
             {{ form_widget(form.halfDay, {'attr' : { 'style':'display:none', 'required':false}}) }}
             {{ form_widget(form.transactionCode, {'attr' : { 'style':'display:none'}}) }}
 
-            {{ form_row(form.save) }}
+            {{ form_row(form.save, { 'label':'Valider'}) }}
             {{ form_end(form) }}
         </div>
     </div>
 
-
     <div class="col-lg-3  col-lg-offset-1 museumInfo">
         <h3>Tarifs </h3>
         <p>Plein : 16€ </p>
-        <p>Réduit : 10€ (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...) </p>
-        <p>Moins de 14 ans : 8€ </p>
-        <p>4 à 13 ans : 6€ </p>
+        <p>Plus de 60 ans : 12€ </p>
+        <p>4 à 12 ans : 8€ </p>
         <p>Moins de 4 ans : gratuit </p>
+        <p>Réduit : 10€ (étudiant, employé du musée, d'un service du Ministère de la culture, militaire...) </p>
         <h3>Jours de fermeture :</h3>
         <p>Chaque mardi et dimanche, jours fériés </p>
     </div>

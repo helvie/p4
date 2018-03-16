@@ -10,7 +10,7 @@ use DateTime;
 
 class WithoutReservationDateValidator extends ConstraintValidator
 {
-
+    // Vérification si le jour choisi est un dimanche (réservation impossible)
     public function validate($value, Constraint $constraint)
     {
         $dayOfWeek = $value->format('N');

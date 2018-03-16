@@ -22,6 +22,8 @@
                 </div>
 
 
+
+
                 <p><strong>Date de la visite : </strong>{{ app.session.get('visitDate')|date('d/m/Y') }}</p>
 
 
@@ -35,12 +37,24 @@
 
                 {% endif %}
 
-                {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places ','attr': {'required': 'true'}}) }}
+                <div class="required constraintMessage">
+                    {{ form_row(form.email, {'label':'Adresse mail à laquelle vous souhaitez recevoir les places ','attr': {'required': true}}) }}
+                </div>
                 <br/><br/>
                 {{ form_widget(form.nbPersons, {'attr' : { 'style':'display:none'}}) }}
                 {{ form_widget(form.visitDate, {'attr' : { 'style':'display:none'}}) }}
                 {{ form_widget(form.transactionCode, {'attr' : { 'style':'display:none'}}) }}
 
+
+                <div style="padding-top : 20px; padding-bottom : 20px; color:red;">
+                {% if maxPrice is defined %}
+
+                    {% if maxPrice < 16 %}
+                        <p>Attention : Une personne au moins doit avoir 14 ans ou plus</p>
+                    {% endif %}
+
+                {% endif %}
+                </div>
 
                 <div class="col-lg-12 form">
 
@@ -56,7 +70,7 @@
 
                             <div class="required constraintMessage">
                                 {{ form_label(person.name, 'Nom :') }}
-                                {{ form_widget(person.name, {'attr': {'required': 'true'}}) }}
+                                {{ form_widget(person.name, {'attr': {'required': true}}) }}
                             </div><div class="constraintMessageDiv">
                                    {{ form_errors(person.name) }}
                                 </div>
@@ -64,7 +78,7 @@
 
                             <div class="required constraintMessage">
                                 {{ form_label(person.firstName, 'Prénom :') }}
-                                {{ form_widget(person.firstName, {'attr': {'required': 'true'}}) }}
+                                {{ form_widget(person.firstName, {'attr': {'required': true}}) }}
                             </div><div class="constraintMessageDiv">
                                     {{ form_errors(person.firstName) }}
                                 </div>
@@ -72,7 +86,7 @@
 
                             <div class="required constraintMessage">
                                 {{ form_label(person.country, 'Pays :') }}
-                                {{ form_widget(person.country, {'attr': {'required': 'true'}}) }}
+                                {{ form_widget(person.country, {'attr': {'required': true}}) }}
                             </div><div class="constraintMessageDiv">
                                   {{ form_errors(person.country) }}
                                 </div>
@@ -80,7 +94,7 @@
 
                             <div class="required constraintMessage">
                                 <p>{{ form_label(person.birth) }}
-                                    {{ form_widget(person.birth, {'attr': {'required': 'true'}}) }}
+                                    {{ form_widget(person.birth, {'attr': {'required': true}}) }}
                                 </p>
                             </div><div class="constraintMessageDiv">
                                     {{ form_errors(person.birth) }}

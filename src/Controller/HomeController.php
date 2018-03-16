@@ -17,7 +17,6 @@ use Doctrine\ORM\Entity;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
-
 class HomeController extends Controller
 {
 

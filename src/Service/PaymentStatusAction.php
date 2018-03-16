@@ -25,7 +25,7 @@ class PaymentStatusAction
         $this->session = $session;
     }
 
-
+    // Envoi d'un mail à l'administrateur du site en cas d'erreur du paiement Stripe dans le site internet
     public function StripeError($error)
     {
         $messageError = "L'erreur suivante s'est produite :".$error;
@@ -44,6 +44,7 @@ class PaymentStatusAction
     }
 
 
+    // Envoi d'un mail à l'administrateur du site en cas d'erreur du paiement Stripe au niveau de la banque
     public function CardError()
     {
         // Create a message

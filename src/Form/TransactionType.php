@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-//use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 
 
@@ -37,7 +37,6 @@ class TransactionType extends AbstractType
             ->add('nbPersons', NumberType::class, [
                 'label' => "Combien de personnes serez-vous ?",
                 'required' => false,
-                //'invalid_message' => 'Vous devez entrer un nombre'
                 ])
 
             ->add('halfDay', CheckboxType::class, array('required' => false, 'label' => false,))

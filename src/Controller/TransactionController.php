@@ -47,18 +47,27 @@ class TransactionController extends Controller
         if ($form->isSubmitted()
             && $form->isValid()
         ) {
-
             $transaction = $transactionServices->transactionObjectCreation($visitDate, $nbPersons, $transactionForm,
                 $transactionServices, $transactionRepository,  $session);
 
+            // Initialisation des variables pour le montant total de la commande et l'âge du visiteur le plus âgé
             $totalTransaction = 0;
+            $maxAge = 0;
 
 
             // Calcul du prix du billet selon anniversaire et réduction
             $persons = $transaction -> getPersons();
             foreach($persons as $uniquePerson2) {
-                $placePrice = $priceAward->priceCalculation($uniquePerson2->getBirth(), $uniquePerson2->getReduction());
+                $ageCalculation = $priceAward->ageCalculation($uniquePerson2->getBirth());
+                $placePrice = $priceAward->priceCalculation($ageCalculation, $uniquePerson2->getReduction());
+
+                // Ajout du prix de la place au montant total de la transaction
                 $totalTransaction += $placePrice;
+
+                // Si la personne est la plus âgée, attribution de la valeur à la variable age maxi
+                if($ageCalculation > $maxAge){
+                    $maxAge = $ageCalculation;
+                }
             }
 
             // Envoi de l'entité transaction et du montant de la commande dans la session
@@ -66,19 +75,32 @@ class TransactionController extends Controller
             $session->set('totalTransaction', $totalTransaction);
 
 
-            // Affichage du récapitulatif de la commande
-            return $this->render("transactionValidationRequest.html.twig", [
-                    //'transactionId' => $transaction->getId(),
-                    'transaction' => $transaction,
-                    'totalTransaction' => $session->get('totalTransaction'),
-                ]
-            );
+            // Si le visiteur le plus âgé a moins de 14 ans, réaffichage du formulaire pour modification
+            if($maxAge < 14){
+                // Affichage du formulaire de transaction
+                return $this->render("transaction.html.twig", array(
+                        'form' => $form->createView(),
+                        'transactionId' => $request->get('transactionId'),
+                        'maxPrice' => $session->get('maxPrice'),
+
+                    )
+                );
+            }
+            else {
+                // Affichage du récapitulatif de la commande
+                return $this->render("transactionValidationRequest.html.twig", [
+                        //'transactionId' => $transaction->getId(),
+                        'transaction' => $transaction,
+                        'totalTransaction' => $session->get('totalTransaction'),
+                    ]
+                );
+            }
         };
 
         // Affichage du formulaire de transaction
         return $this->render("transaction.html.twig", array(
                 'form' => $form->createView(),
-                'transactionId' => $request->get('transactionId')
+                'transactionId' => $request->get('transactionId'),
             )
         );
 

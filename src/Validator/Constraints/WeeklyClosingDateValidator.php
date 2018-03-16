@@ -11,6 +11,7 @@ use DateTime;
 class WeeklyClosingDateValidator extends ConstraintValidator
 {
 
+    // Vérification si le jour choisi est un mardi (fermeture hebdomadaire)
     public function validate($value, Constraint $constraint)
     {
         $dayOfWeek = $value->format('N');

@@ -7,10 +7,7 @@
             <p style="margin-top : 30px; margin-bottom : 70px; font-size : 16px;">Nous vous remercions pour votre commande. Vous devez être muni d'une copie de ce mail lors de votre venue au musée.</p>
 
             <p style="margin-bottom : 30px;">N° de commande : <span style = "font-weight:bold; font-size:16px; color:#666;">{{ transaction.transactionCode }}</span></p>
-
-
-            <h3 style="margin-bottom:30px;">Venue :</h3>
-
+            
             <p>Date de la visite : <span style = "font-size:16px; color:#886711;">{{ transaction.visitDate|date('d/m/Y') }}</span></p>
 
             <p>Durée visite :
@@ -31,7 +28,9 @@
                 <p>Prénom : <span style = "font-size:16px; color:#886711;">{{ person.firstname }}</span></p>
                 <p>Date de naissance : <span style = "font-size:16px; color:#886711;">{{ person.birth|date('d/m/Y') }}</span></p>
                 <p>Pays : <span style = "font-size:16px; color:#886711;">{{ person.country }}</span></p>
-                <p>Tarif billet : <span style = "font-size:16px; color:#886711;">{{ priceCalculation(person.birth,person.reduction) }} euros</span></p>
+                <p>Tarif billet : <span style = "font-size:16px; color:#886711;">{{ priceCalculation(
+                            ageCalculation(person.birth),
+                            person.reduction) }} euros</span></p>
                 <div style="margin-bottom : 60px;"><p>Carte réduction :
                     {% if  person.reduction == 0 %}
                         <span style = "font-size:16px; color:#886711;">Non</span>

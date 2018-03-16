@@ -5,37 +5,41 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use DateTime;
 use App\Service\PriceAward;
+use Twig_Extension;
 
-class AppExtension extends AbstractExtension
+class AppExtension extends \Twig_Extension
 {
+
+    private $priceAward;
+
+    public function __construct(PriceAward $priceAward)
+    {
+        $this->priceAward = $priceAward;
+    }
+
     public function getFunctions()
     {
         return array(
-            'price' => new \Twig_Function('priceCalculation', array($this, 'priceCalculation')),
+            'ageCalculation' => new \Twig_Function('ageCalculation', array($this, 'ageCalculation')),
+            'priceCalculation' => new \Twig_Function('priceCalculation', array($this, 'priceCalculation')),
+
         );
     }
-
-    public function priceCalculation($birthday, $reduction)
-
+    // Fonction calcul de l'âge du visiteur, en récupérant le service "calcul d'âge"
+    public function ageCalculation($birthday)
     {
-        $dateToday = new DateTime();
-        $age1 = $birthday->diff($dateToday);
-        $age = $age1->format('%y');
 
-        if ($age < 4) {
-            $price = 0;
-        } elseif ($age < 12) {
-            $price = 8;
-        } elseif ($reduction == true) {
-            $price = 10;
-        } elseif ($age > 12 && $age < 60) {
-            $price = 16;
-        } else {
-            $price = 12;
-        }
-
-        return ($price);
+        return($this->priceAward->ageCalculation($birthday));
 
     }
 
-}
+
+    // Fonction calcul du prix de la place du visiteur, en récupérant le service "calcul de prix"
+    public function priceCalculation($age, $reduction){
+
+        return($this->priceAward->priceCalculation($age, $reduction));
+
+    }
+
+};
+

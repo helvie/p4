@@ -10,8 +10,6 @@
 
         {% block bodyPage %}
 
-            <h3 style="margin-bottom:30px;">Venue :</h3>
-
             <p>Date de la visite : <span class = "data">{{ transaction.visitDate|date('d/m/Y') }}</span></p>
 
             <p>Durée visite :
@@ -31,14 +29,17 @@
                 <p>Prénom : <span class = "data">{{ person.firstname }}</span></p>
                 <p>Date de naissance : <span class = "data">{{ person.birth|date('d/m/Y') }}</span></p>
                 <p>Pays : <span class = "data">{{ person.country }}</span></p>
-                <p>Tarif billet : <span class = "data">{{ priceCalculation(person.birth,person.reduction) }} euros</span></p>
+                <p>Tarif billet :
+                    {#{% set  age = ageCalculation(person.birth) %}#}
+                    <span class = "data">{{ priceCalculation(
+                            ageCalculation(person.birth),
+                            person.reduction) }} euros</span></p>
                 <p style="margin-bottom : 40px;">Carte réduction :
                 {% if  person.reduction == 0 %}
                         <span class = "data">Non</span>
                 {% else %}
                             <span class = "data">Oui</span>
                 {% endif %}</p>
-
 
             {% endfor %}
             <div id = "totalTransaction">Montant de la commande :

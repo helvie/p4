@@ -29,7 +29,7 @@ class FullDateValidator extends ConstraintValidator
         $this->em = $doctrine->getManager();
     }
 
-
+    // Vérification s'il y a plus de 1000 personnes ayant réservé une date au musée à la date choisie
     public function validate($value, Constraint $constraint)
     {
         $repository = $this->em

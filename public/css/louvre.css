@@ -41,7 +41,7 @@ label {
 }
 
 
-#bienvenue{
+#bienvenue {
     font-weight : bold;
     font-size : 20px;
     color : #886711;
@@ -147,18 +147,18 @@ label {
     font-weight: normal;}
 
 
-.constraintMessage li{
+.constraintMessage li {
     margin-top:5px;
     color : red;
 }
 
 
-.constraintMessageDiv li{
+.constraintMessageDiv li {
     color : red;
 }
 
 
-.constraintMessageDiv{
+.constraintMessageDiv {
     height : 25px;
 }
 
@@ -169,7 +169,7 @@ label {
 }
 
 
-.form div{
+.form div {
     margin-bottom : 10px;
 }
 
@@ -213,7 +213,7 @@ label {
 }
 
 
-.input{
+.input {
     margin-bottom : 10px;
 }
 
@@ -249,7 +249,7 @@ label {
 }
 
 
-.required label:after{
+.required label:after {
     content: "* ";
 }
 

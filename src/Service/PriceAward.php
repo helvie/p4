@@ -16,15 +16,21 @@ use DateTime;
 
 class PriceAward
 {
-    public function priceCalculation($birthday, $reduction)
+    public function ageCalculation($birthday)
     {
         $dateToday = new DateTime();
         $age1 = $birthday->diff($dateToday);
         $age = $age1->format('%y');
 
+        return($age);
+
+    }
+
+    public function priceCalculation($age, $reduction){
+
         if ($age < 4) {
             $price = 0;
-        } elseif ($age < 12) {
+        } elseif ($age < 13) {
             $price = 8;
         } elseif ($reduction == true) {
             $price = 10;

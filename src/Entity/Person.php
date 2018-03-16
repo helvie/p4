@@ -79,8 +79,6 @@ class Person
     private $reduction;
 
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Transaction" , inversedBy="persons")
      * @ORM\JoinColumn(nullable=true)

@@ -12,6 +12,7 @@ use DateTime;
 class HolidayDateValidator extends ConstraintValidator
 {
 
+    // Vérification des jours fériés
     public function validate($value, Constraint $constraint)
     {
         $year = $value->format('Y');

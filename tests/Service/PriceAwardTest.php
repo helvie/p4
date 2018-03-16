@@ -16,12 +16,21 @@ use DateTime;
 
 class PriceAwardTest extends TestCase
 {
+    public function testAgeCalculation(){
+        $priceAward = new priceAward();
+        $birthday = new DateTime('2006-03-01');
+        $result = $priceAward ->ageCalculation($birthday);
+
+        $this->assertEquals(12, $result);
+
+    }
+
     public function testPriceCalculation()
     {
         $priceAward = new PriceAward();
-        $birthday = new DateTime("2001-01-01");
-        $result = $priceAward->priceCalculation($birthday, false);
+        $age = 12;
+        $result = $priceAward->priceCalculation($age, false);
 
-        $this->assertEquals(16, $result);
+        $this->assertEquals(8, $result);
     }
 };

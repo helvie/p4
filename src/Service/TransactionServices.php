@@ -20,6 +20,8 @@ use App\Entity\Person;
 
 class TransactionServices
 {
+
+    // Création du code de la commande
     public function transactionCodeCreation(TransactionRepository $transactionRepository, SessionInterface $session, $transaction){
 
         $visitDate = $session->get('visitDate');
@@ -56,6 +58,7 @@ class TransactionServices
     }
 
 
+    // Création du formulaire de commande
     public function transactionFormCreation($visitDate, $nbPersons,  Session $session){
         // Création du formulaire avec entité transaction en y injectant la date de visite et nombre personnes
         $transactionForm = new Transaction();
@@ -91,7 +94,7 @@ class TransactionServices
     }
 
 
-
+    // Création et injection de l'objet commande en préparation d'une future injection dans la base de données
     public function transactionObjectCreation($visitDate, $nbPersons, $transactionForm, TransactionServices $transactionServices,
                                               TransactionRepository $transactionRepository, SessionInterface $session){
 
@@ -117,8 +120,6 @@ class TransactionServices
         $transaction1->setVisitDate($visitDate);
         $transaction1->setNbPersons($nbPersons);
 
-        // Création variable du montant de la commande
-        //$totalTransaction = 0;
 
         // Récupération des persomnes dans les données formulaire
         foreach ($personsList as $uniquePerson) {
