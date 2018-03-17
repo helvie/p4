@@ -11,13 +11,16 @@
 
         {% block bodyPage %}
 
-            <p id="informationText">Nous vous remercions pour votre commande. Un mail vient de vous être envoyé. Vous devez être muni de celui-ci lors de votre venue au musée.</p>
+            <p id="informationText">Nous vous remercions pour votre commande.
+                Un mail vient de vous être envoyé. Vous devez être muni de celui-ci lors de votre venue au musée.
+            Si vous ne l'avez pas reçu, cliquez sur le lien en bas de page afin qu'il vous soit envoyé à nouveau</p>
+
+
 
             <p>N° de commande : <span id="transactionCode">{{ transaction.transactionCode }}</span></p>
 
 
             {{ parent() }}
-
             <a href="{{ path("visitorMailSend") }}" class='btn btn btn-info btnSave'>Recevoir à nouveau le mail de validation</a>
             <a href="{{ path("index") }}" class='btn btn btn-info btnSave'>Revenir à l'accueil</a>
 
