@@ -16,14 +16,14 @@ class TodayEveningValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $today = new DateTime();
-        if ($today->format("yy/mm/dd") == $value->format("yy/mm/dd"))
-        {
-            if (($today->format('H'))>=17) {
+        if ($today->format("yy/mm/dd") == $value->format("yy/mm/dd")) {
+            if (($today->format('H')) >= 17) {
+
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }
-        }
 
+        }
     }
 
 }

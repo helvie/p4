@@ -25,16 +25,15 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('birth', DateType::class, [
+                'label' => "Date de naissance",
+                'widget' => 'single_text'])
+
             ->add('name', TextType::class)
 
             ->add('firstName', TextType::class)
 
             ->add('country', TextType::class)
-
-            ->add('birth', DateType::class,
-                ['widget' => 'single_text',
-                'label' => 'Date de naissance',
-                ])
 
             ->add('reduction', CheckboxType::class, ['required' => false]);
 

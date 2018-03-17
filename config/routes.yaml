@@ -14,3 +14,6 @@ validPayment:
     path: /validPayment
     controller: App\Controller\PaymentController::validPayment
 
+visitorMailSend:
+    path: /validatedTransaction
+    controller: App\Controller\MailController:visitorMailSend

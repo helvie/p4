@@ -28,14 +28,16 @@ class Transaction {
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\Date (message = "Le format de la date doit être yyyy-mm-dd - Ex. : 2018-05-28")
      * @Assert\NotBlank
      * @Assert\GreaterThanOrEqual(value = "today", message = "La date choisie est passée")
      * @Assert\LessThanOrEqual(value = "+5 years", message = "Veuillez choisir une date antérieure (5 années maximum)")
-     * @AcmeAssert\WeeklyClosingDate
+//     * @AcmeAssert\WeeklyClosingDate
      * @AcmeAssert\WithoutReservationDate
      * @AcmeAssert\HolidayDate
      * @AcmeAssert\FullDate
      * @AcmeAssert\TodayEvening
+
      */
     private $visitDate;
 
@@ -45,6 +47,7 @@ class Transaction {
     private $halfDay;
 
     /**
+     * @Assert\NotBlank
      * @Assert\LessThanOrEqual(value = "30", message = "Pour les groupes supérieurs à 30 personnes, merci de nous contacter")
      * @Assert\GreaterThan(value = "0", message = "Vous devez entrer un nombre valide")
      * @ORM\Column(type="integer")

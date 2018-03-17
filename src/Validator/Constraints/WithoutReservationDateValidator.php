@@ -16,6 +16,7 @@ class WithoutReservationDateValidator extends ConstraintValidator
         $dayOfWeek = $value->format('N');
 
         if ($dayOfWeek == 7) {
+
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

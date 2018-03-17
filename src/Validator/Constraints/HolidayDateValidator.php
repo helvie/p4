@@ -37,6 +37,7 @@ class HolidayDateValidator extends ConstraintValidator
             }
         }
         if ($holiday == true) {
+
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -13,9 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Swift_Message;
+
 use App\Service\PaymentStatusAction;
-//use Doctrine\ORM\Entity;
-//use Stripe\Stripe;
+use App\Service\VisitorMail;
+use Doctrine\ORM\Entity;
+use Stripe\Stripe;
 
 
 class PaymentController extends Controller
@@ -28,7 +30,7 @@ class PaymentController extends Controller
 
 
     public function validPayment(Session $session, PaymentStatusAction $paymentStatusAction,
-                                 \Swift_Mailer $mailer, Request $request)
+                                 \Swift_Mailer $mailer, Request $request, VisitorMail $visitorMail)
     {
 
         // Module de paiement stripe
@@ -42,6 +44,7 @@ class PaymentController extends Controller
                  "description" => "Paiement test"
              ));
 
+
              // Accès à la base de données, récupération de l'entité transaction,
              $em = $this->getDoctrine()->getManager();
              $transaction = $session->get('transaction');
@@ -53,25 +56,11 @@ class PaymentController extends Controller
 
              // Récupération de l'email du passeur de commande et création du mail via Swiftmail
              $recipient = $session->get('transaction')->getEmail();
-
-             $message = (new Swift_Message('Vos billets suite à votre commande'))
-                 ->setFrom(['sylvie@hevie.fr' => 'Sylvie'])
-                 ->setTo([$recipient => "Internaute"])
-                 ->setBody($this->renderView(
-                     'mail\mailTransaction.html.twig',
-                     array(
-                         //'transactionId' => $transaction->getId(),
-                         'transaction' => $session->get('transaction'),
-                         'totalTransaction' => $session->get('totalTransaction'),
-                     )
-                 ),
-                     'text/html'
-                 );
-
+             $message = $visitorMail->visitorMail($recipient, $session);
              // Send the message
              $mailer->send($message);
 
-             // Affichege de la page récapitulative de la commande
+             // Affichage de la page récapitulative de la commande
              return $this->render("validatedTransaction.html.twig",
                  array(
                      //'transactionId' => $transaction->getId(),

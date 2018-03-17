@@ -31,8 +31,7 @@ class TransactionType extends AbstractType
         $builder
             ->add('visitDate', DateType::class, [
                 'label' => "A quelle date souhaitez-vous venir ?",
-                'widget' => 'single_text',
-                'required' => false,])
+                'widget' => 'single_text'])
 
             ->add('nbPersons', NumberType::class, [
                 'label' => "Combien de personnes serez-vous ?",
