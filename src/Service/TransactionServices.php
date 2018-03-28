@@ -21,6 +21,92 @@ use App\Entity\Person;
 class TransactionServices
 {
 
+    // Création du formulaire de commande
+    public function transactionFormCreation($visitDate, $nbPersons,  Session $session)
+    {
+        // Création du formulaire avec entité transaction en y injectant la date de visite et nombre personnes
+        $transactionForm = new Transaction();
+        $transactionForm->setVisitDate($visitDate);
+        $transactionForm->setNbPersons($nbPersons);
+
+        // Si l'entité transaction a déjà été créée, récup des informations pour les injecter dans les formulaire de modification
+        if ($session->get('transaction') != '') {
+            $transactionForm->setEmail($session->get('transaction')->getEmail());
+            $transactionForm->setHalfDay($session->get('transaction')->getHalfDay());
+
+            foreach ($session->get('transaction')->getPersons() as $personData) {
+                $person = new Person();
+                $person->setName($personData->getName());
+                $person->setFirstName($personData->getFirstName());
+                $person->setCountry($personData->getCountry());
+                $person->setBirth($personData->getBirth());
+                $person->setReduction($personData->getReduction());
+                $transactionForm->getPersons()->add($person);
+            }
+
+            // Sinon, création d'entités personnes injectées dans transaction selon nombre visiteurs
+        } else {
+            for ($i = 0; $i < $nbPersons; $i++) {
+                $person = new person();
+                $transactionForm->getPersons()->add($person);
+            }
+        }
+
+        return($transactionForm);
+
+    }
+
+
+
+    // Création et injection de l'objet commande en préparation d'une future injection dans la base de données
+    public function transactionObjectCreation($visitDate, $nbPersons, $transactionForm, TransactionServices $transactionServices,
+                                              TransactionRepository $transactionRepository, SessionInterface $session){
+
+        // Création d'une entité transaction pour préparer les données de BD
+        $transaction1 = new Transaction();
+
+        // Récupération des personnes dans les données formulaire
+        $personsList = $transactionForm->getPersons();
+
+        // Si la date de visite est le jour même après 14h met la demi-journée à "true", sinon récupère donnée du formulaire
+        $dateNow = new \DateTime('now');
+        if ($dateNow->format('y-m-d') == $visitDate->format('y-m-d') && $dateNow->format("H") > 13) {
+            $transaction1->setHalfDay(true);
+        }
+        else
+        {
+            $transaction1->setHalfDay($transactionForm->getHalfDay());
+        }
+
+        // Injection des données dans l'entité transaction
+        $transaction1->setEmail(mb_strtolower($transactionForm->getEmail()));
+        $transaction1->setVisitDate($visitDate);
+        $transaction1->setNbPersons($nbPersons);
+
+
+        // Récupération des persomnes dans les données formulaire
+        foreach ($personsList as $uniquePerson) {
+            $person = new Person();
+            $person->setName(mb_strtoupper($uniquePerson->getName(), 'UTF-8'));
+            $person->setFirstName(mb_strtoupper($uniquePerson->getFirstName(), 'UTF-8'));
+            $person->setCountry(mb_strtoupper($uniquePerson->getCountry(), 'UTF-8'));
+            $person->setBirth($uniquePerson->getBirth());
+            $person->setReduction($uniquePerson->getReduction());
+            $person->setTransaction($transaction1);
+
+            // Injection de chaque personne dans l'array persons de l'entité transaction
+            $transaction1->getPersons()->add($person);
+        }
+
+        // Récupération du code de la transaction créé et injection dans $transaction
+        $finalTransactionCode = $transactionServices->transactionCodeCreation($transactionRepository, $session, $transaction1);
+        $transaction1->setTransactionCode($finalTransactionCode);
+
+        return($transaction1);
+    }
+
+
+
     // Création du code de la commande
     public function transactionCodeCreation(TransactionRepository $transactionRepository, SessionInterface $session, $transaction){
 
@@ -56,92 +142,5 @@ class TransactionServices
         return($finalTransactionCode);
 
     }
-
-
-    // Création du formulaire de commande
-    public function transactionFormCreation($visitDate, $nbPersons,  Session $session){
-        // Création du formulaire avec entité transaction en y injectant la date de visite et nombre personnes
-        $transactionForm = new Transaction();
-        $transactionForm->setVisitDate($visitDate);
-        $transactionForm->setNbPersons($nbPersons);
-
-        // Si l'entité transaction a déjà été créée, récup des informations pour les injecter dans les formulaire de modification
-        if ($session->get('transaction') != '') {
-            $transactionForm->setEmail($session->get('transaction')->getEmail());
-            $transactionForm->setHalfDay($session->get('transaction')->getHalfDay());
-
-            foreach ($session->get('transaction')->getPersons() as $personData) {
-
-                $person = new Person();
-                $person->setName($personData->getName());
-                $person->setFirstName($personData->getFirstName());
-                $person->setCountry($personData->getCountry());
-                $person->setBirth($personData->getBirth());
-                $person->setReduction($personData->getReduction());
-                $transactionForm->getPersons()->add($person);
-            }
-
-            // Sinon, création d'entités personnes injectées dans transaction selon nombre visiteurs
-        } else {
-            for ($i = 0; $i < $nbPersons; $i++) {
-                $person = new person();
-                $transactionForm->getPersons()->add($person);
-            }
-        }
-
-        return($transactionForm);
-
-    }
-
-
-    // Création et injection de l'objet commande en préparation d'une future injection dans la base de données
-    public function transactionObjectCreation($visitDate, $nbPersons, $transactionForm, TransactionServices $transactionServices,
-                                              TransactionRepository $transactionRepository, SessionInterface $session){
-
-        // Création d'une entité transaction pour préparer les données de BD
-        $transaction1 = new Transaction();
-
-        // Récupération des personnes dans les données formulaire
-        $personsList = $transactionForm->getPersons();
-
-        // Si la date de visite est le jour même après 14h met la demi-journée à "true", sinon récupère donnée du formulaire
-        $dateNow = new \DateTime('now');
-        if ($dateNow->format('y-m-d') == $visitDate->format('y-m-d') && $dateNow->format("H") > 13) {
-            $transaction1->setHalfDay(true);
-        }
-        else
-        {
-
-            $transaction1->setHalfDay($transactionForm->getHalfDay());
-        }
-
-        // Injection des données dans l'entité transaction
-        $transaction1->setEmail(mb_strtolower($transactionForm->getEmail()));
-        $transaction1->setVisitDate($visitDate);
-        $transaction1->setNbPersons($nbPersons);
-
-
-        // Récupération des persomnes dans les données formulaire
-        foreach ($personsList as $uniquePerson) {
-            $person = new Person();
-            $person->setName(mb_strtoupper($uniquePerson->getName(), 'UTF-8'));
-            $person->setFirstName(mb_strtoupper($uniquePerson->getFirstName(), 'UTF-8'));
-            $person->setCountry(mb_strtoupper($uniquePerson->getCountry(), 'UTF-8'));
-            $person->setBirth($uniquePerson->getBirth());
-            $person->setReduction($uniquePerson->getReduction());
-            $person->setTransaction($transaction1);
-
-            // Injection de chaque personne dans l'array persons de l'entité transaction
-            $transaction1->getPersons()->add($person);
-        }
-
-        // Récupération du code de la transaction créé et injection dans $transaction
-        $finalTransactionCode = $transactionServices->transactionCodeCreation($transactionRepository, $session, $transaction1);
-        $transaction1->setTransactionCode($finalTransactionCode);
-
-        return($transaction1);
-
-    }
-
-
 }
+

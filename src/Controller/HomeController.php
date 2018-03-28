@@ -51,8 +51,5 @@ class HomeController extends Controller
         return $this->render('homePage.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
-
-
 }

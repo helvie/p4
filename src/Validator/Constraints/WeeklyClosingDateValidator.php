@@ -27,8 +27,3 @@ class WeeklyClosingDateValidator extends ConstraintValidator
 
 }
 
-
-
-
-
-

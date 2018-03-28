@@ -18,6 +18,7 @@ use App\Service\PaymentStatusAction;
 use App\Service\VisitorMail;
 use Doctrine\ORM\Entity;
 use Stripe\Stripe;
+use Swift_Mailer;
 
 
 class PaymentController extends Controller
@@ -27,6 +28,7 @@ class PaymentController extends Controller
     {
         return $this->render('cardNumber.html.twig');
     }
+
 
 
     public function validPayment(Session $session, PaymentStatusAction $paymentStatusAction,
@@ -94,8 +96,4 @@ class PaymentController extends Controller
 
     }
 }
-
-;
-
-
 

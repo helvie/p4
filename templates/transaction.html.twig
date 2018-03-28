@@ -142,7 +142,21 @@
                 annotation.style.display = "none";
                 this.parentNode.parentNode.style.marginBottom = "60px";
             }
+        });
+
+        $(".reducedPriceClass").load(function(e) {
+            var annotation = this.parentNode.parentNode.lastChild;
+            if (this.checked) {
+                annotation.style.display = "";
+                this.parentNode.parentNode.style.marginBottom = "0px";
+            }
+            else {
+                annotation.style.display = "none";
+                this.parentNode.parentNode.style.marginBottom = "60px";
+            }
         })
+
+
 
     </script>
 

@@ -47,5 +47,4 @@ class PersonType extends AbstractType
 
         ));
     }
-
 }

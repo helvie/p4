@@ -48,7 +48,7 @@ class PaymentStatusAction
     public function CardError()
     {
         // Create a message
-        $message = (new Swift_Message('Vos billets suite à votre commande'))
+        $message = (new Swift_Message("Une erreur s'est produite lors d'une commande"))
             ->setFrom(['sylviepil1l1@gmail.com' => 'Sylvie'])
             ->setTo(['sylviepil1l1@gmail.com' => 'Sylvie'])
             ->setBody('erreur');
@@ -62,7 +62,4 @@ class PaymentStatusAction
     }
 
 }
-
-
-
 

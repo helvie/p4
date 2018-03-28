@@ -184,9 +184,5 @@ class Transaction {
         return $this->persons;
     }
 
-
-
-
-
-
 }
+

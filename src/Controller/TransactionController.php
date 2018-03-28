@@ -16,12 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TransactionRepository;
 use App\Service\TransactionServices;
 use Symfony\Component\HttpFoundation\Session\Session;
-//use App\Service\TransactionForm;
-//use App\Entity\Person;
-//use App\Entity\Transaction;
-//use Symfony\Component\HttpFoundation\Session\SessionInterface;
-//use App\Service\TransactionDataRecovery;
-//use Doctrine\ORM\Entity;
+
 
 
 
@@ -70,9 +65,6 @@ class TransactionController extends Controller
                 }
             }
 
-            // Envoi de l'entité transaction et du montant de la commande dans la session
-            $session->set('transaction', $transaction);
-            $session->set('totalTransaction', $totalTransaction);
 
 
             // Si le visiteur le plus âgé a moins de 14 ans, réaffichage du formulaire pour modification
@@ -87,6 +79,12 @@ class TransactionController extends Controller
                 );
             }
             else {
+
+
+                // Envoi de l'entité transaction et du montant de la commande dans la session
+                $session->set('transaction', $transaction);
+                $session->set('totalTransaction', $totalTransaction);
+
                 // Affichage du récapitulatif de la commande
                 return $this->render("transactionValidationRequest.html.twig", [
                         //'transactionId' => $transaction->getId(),

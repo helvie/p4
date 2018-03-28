@@ -45,6 +45,3 @@ class FullDateValidator extends ConstraintValidator
     }
 }
 
-
-
-

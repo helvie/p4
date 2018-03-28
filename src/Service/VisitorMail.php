@@ -31,7 +31,7 @@ class VisitorMail
 
         $message = (new Swift_Message('Vos billets suite à votre commande'))
             ->setFrom(['sylvie@helvie.fr' => 'Sylvie'])
-            ->setTo([$recipient => "Internaute"])
+            ->setTo([$recipient => 'Internaute'])
             ->setBody($this->templating->render(
             'mail\mailTransaction.html.twig',
                 array(
@@ -48,7 +48,4 @@ class VisitorMail
     }
 
 }
-
-
-
 

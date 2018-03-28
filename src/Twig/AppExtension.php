@@ -41,5 +41,4 @@ class AppExtension extends \Twig_Extension
 
     }
 
-};
-
+}
